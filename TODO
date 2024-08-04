@@ -1,0 +1,73 @@
+FUNCIONES POR HACER
+
+
+ft_drawLine(ft_pt pointa, ft_pt pointb, ft_col color);
+
+ft_constructor();
+ft_destructor();
+
+ft_setMLX();
+ft_getMLX();
+
+ft_setGenStruct();
+ft_getGenStruct();
+ft_freeGenStruct();
+
+
+Structs
+
+===========================================================================
+
+typedef struct s_pt{
+
+	float	x;
+	float	y;
+	t_color	color
+}		t_pt;
+
+ft_pt(float x, float y);
+ft_dist(t_pt a, t_pt b);
+ft_colorPt(t_pt pt, t_color color);
+
+===========================================================================
+
+typedef struct s_img{
+	char	*path;
+	char	*data_addr;
+	void	*img;
+	int	*pixel_addr;
+	int	bits_per_pixel;
+	int	line_size;
+	int	endian;
+	int	width;
+	int	height;
+	float	alpha;
+}				t_img;
+
+ft_openImage(void *mlx, char *path, t_list *gallery);
+ft_makeImage(void *mlx, unsigned int width, unsigned int height, t_list *gallery);
+ft_getImage(char *name, t_list *gallery);
+ft_freeImage(t_img *image);
+
+===========================================================================
+
+typedef struct s_color{
+	int	red;
+	int	green;
+	int	blue;
+	float	alpha;
+}		t_color;
+
+ft_color(char *color);
+ft_colorFormRGB(int red, int green, int blue);
+ft_colorFormHEX(int color);
+ft_color_mix(ft_color, ft_color, float lerp)
+
+===========================================================================
+
+typedef struct s_win{
+	void	*mlx;
+	void	*win;
+	t_img	*result;
+}		t_win;
+
