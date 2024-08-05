@@ -12,7 +12,6 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# pragma once
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
