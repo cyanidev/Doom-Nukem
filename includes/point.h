@@ -1,7 +1,6 @@
 
 #ifndef POINT_H
 # define POINT_H
-# pragma once
 # include "color.h"
 
 typedef struct s_point

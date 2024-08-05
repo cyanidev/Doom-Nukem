@@ -12,7 +12,6 @@
 
 #ifndef FT_CUB_H
 # define FT_CUB_H
-# pragma once
 # include <stdlib.h>
 # include "player.h"
 # include "libft.h"

@@ -12,7 +12,6 @@
 
 #ifndef PLAYER_H
 # define PLAYER_H
-# pragma once
 # include "point.h"
 
 typedef struct s_player

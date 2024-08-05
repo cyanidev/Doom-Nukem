@@ -2,7 +2,6 @@
 
 #ifndef COLOR_H
 # define COLOR_H
-# pragma once
 
 typedef struct s_color
 {
