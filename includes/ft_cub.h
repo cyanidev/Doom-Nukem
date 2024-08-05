@@ -15,6 +15,7 @@
 # pragma once
 # include <stdlib.h>
 # include "player.h"
+# include "libft.h"
 
 typedef struct s_cub
 {
