@@ -14,6 +14,7 @@ NAME	= cub3d
 CFLAGS	= 
 INC	= -I./includes/ -I./libft/
 INC	+= -I/usr/include -O3 -I./minilibx-linux/ 
+INC += -L./libft/ -lft 
 CC	= gcc $(CFLAGS)
 
 SRCS	= ./mandatory/main.c
@@ -52,7 +53,7 @@ title:
 	@echo ""
 
 .mandatory: .libft .mlx $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) -L./libft/ -lft -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
+	$(CC) -o $(NAME) $(OBJS) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@touch .mandatory
 
 re: fclean all
