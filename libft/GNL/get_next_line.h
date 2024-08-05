@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 
-struct s_data_base
+typedef struct s_data_base
 {
 	char	buffer_line[BUFFER_SIZE + 1];
 	char	*saved_line;
