@@ -6,7 +6,7 @@
 /*   By: samusanc <samusanc@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 19:05:51 by samusanc          #+#    #+#             */
-/*   Updated: 2023/10/19 10:31:25 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/05 02:57:41 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ char	*ft_read_line(struct s_data_base *file, int *read_number, int fd)
 
 char	*get_next_line(int fd)
 {
-	static struct s_data_base	file[OPEN_MAX];
+	static struct s_data_base	file[FOPEN_MAX];
 	int							read_number;
 	char						*result;
 
 	read_number = 1;
 	if (read(fd, 0, 0) < 0 || fd < 0 \
-	|| BUFFER_SIZE < 1 || fd > OPEN_MAX)
+	|| BUFFER_SIZE < 1 || fd > FOPEN_MAX)
 		return (ft_error(&file[fd]));
 	while (read_number)
 	{

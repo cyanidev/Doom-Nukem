@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/05 01:50:15 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/05 02:51:27 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,10 @@ all: title .mandatory
 	@make -sC ./minilibx-linux/ all
 	@touch .mlx
 
+.libft:
+	@make -sC ./libft/ all
+	@touch .libft
+
 title:
 	@echo "===================================="
 	@echo " _____ _   _______  ___________ "
@@ -47,7 +51,7 @@ title:
 	@echo "Graphics:samusanc, Parsing:afelicia"
 	@echo ""
 
-.mandatory: .mlx $(OBJS)
+.mandatory: .libft .mlx $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@touch .mandatory
 
@@ -55,12 +59,14 @@ re: fclean all
 
 fclean: clean
 	@echo "cleaning binaries..."
+	@make -sC ./libft/ fclean
 	@rm -f $(NAME)
 	@rm -f $(NAME)_bonus
 	@rm -rf .bonus
 	@rm -rf .mandatory
 	@rm -rf .clean
 	@rm -rf .mlx
+	@rm -rf .libft
 
 clean: .clean
 	@echo "objects removed!"
@@ -68,6 +74,7 @@ clean: .clean
 .clean:
 	@echo "cleaning objects..."
 	@make -sC ./minilibx-linux/ clean
+	@make -sC ./libft/ clean
 	@rm -f $(OBJS)
 	@rm -f $(B_OBJS)
 	@rm -rf $(O_DIR)

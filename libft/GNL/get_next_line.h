@@ -6,7 +6,7 @@
 /*   By: samusanc <samusanc@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 17:44:16 by samusanc          #+#    #+#             */
-/*   Updated: 2023/11/26 12:22:04 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/05 02:57:17 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_H
@@ -20,7 +20,8 @@
 # include <fcntl.h>
 # include <limits.h>
 
-struct s_data_base {
+struct s_data_base
+{
 	char	buffer_line[BUFFER_SIZE + 1];
 	char	*saved_line;
 	int		saved_line_len;
