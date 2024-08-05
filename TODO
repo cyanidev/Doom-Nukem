@@ -25,7 +25,6 @@ typedef struct s_pt{
 	t_color	color
 }		t_pt;
 
-ft_pt(float x, float y);
 ft_dist(t_pt a, t_pt b);
 ft_colorPt(t_pt pt, t_color color);
 

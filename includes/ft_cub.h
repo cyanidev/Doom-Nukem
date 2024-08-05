@@ -12,7 +12,16 @@
 
 #ifndef FT_CUB_H
 # define FT_CUB_H
+# pragma once
+# include <stdlib.h>
+# include "player.h"
 
-
+typedef struct s_cub
+{
+	void			*mlx;
+	void			*mlx_win;
+	unsigned int	frame;
+	t_player		player;
+}               t_cub;
 
 #endif

@@ -13,18 +13,21 @@
 #ifndef PLAYER_H
 # define PLAYER_H
 # pragma once
+# include "point.h"
 
 typedef struct s_player
 {
-	float	px;
-	float	py;
+	t_point	pos;
+	float	dx;
+	float	dy;
 	float	angle;
 }		t_player;
 
-// set player angle
+// seters Player
 void	setPlayerA(float angle);
+void	setPlayerPos(t_point pos);
 
-// set player pos
-void	setPlayerP(float px, float py);
+// getters Player
+t_point	getPlayerPos(void);
 
 #endif
