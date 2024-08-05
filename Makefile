@@ -52,7 +52,7 @@ title:
 	@echo ""
 
 .mandatory: .libft .mlx $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
+	$(CC) -o $(NAME) $(OBJS) -L./libft/ -lft -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@touch .mandatory
 
 re: fclean all
