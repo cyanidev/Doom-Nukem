@@ -60,7 +60,7 @@ t_cub	*ft_constructor()
 {
 	t_cub	*result;
 
-	result = malloc(sizeof(t_cub), 1);
+	result = malloc(sizeof(t_cub));
 	if (!result)
 		return (NULL);
 	ft_bzero(result, sizeof(t_cub));
@@ -69,12 +69,13 @@ t_cub	*ft_constructor()
 	return (result);
 }
 
-void	ft_drawFrame(void *p_cub)
+int	ft_drawFrame(void *p_cub)
 {
 	t_cub	*cub;
 
 	cub = (t_cub *)p_cub;
 	cub->frame += 1;
+	return (0);
 }
 
 int	main(void)
