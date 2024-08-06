@@ -14,6 +14,7 @@
 # define PLAYER_H
 # include "point.h"
 
+// TODO I NEED TO CHANGE THIS SECTION TO MATCH PLAYERS ENEMYS AND OTHER SPRITES
 typedef struct s_player
 {
 	t_point	pos;
@@ -28,5 +29,6 @@ void	setPlayerPos(t_point pos);
 
 // getters Player
 t_point	getPlayerPos(void);
+float	getPlayerA(void);
 
 #endif

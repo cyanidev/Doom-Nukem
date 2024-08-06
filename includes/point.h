@@ -11,5 +11,6 @@ typedef struct s_point
 }		t_point;
 
 t_point	point(float px, float py);
+t_point	pointC(float px, float py, t_color color);
 
 #endif
