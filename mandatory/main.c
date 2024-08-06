@@ -13,6 +13,55 @@
 #include "mlx.h"
 #include "ft_cub.h"
 
+void	ft_free_img(t_img *img)
+{
+	if (img)
+	{
+		if (img->img)
+			free(img->img);
+		if (img->path)
+			free(img->path);
+		if (img->data_addr)
+			free(img->data_addr);
+		if (img->pixel_addr)
+			free(img->pixel_addr);
+		ft_bzero(img, sizeof(t_img));
+		free(img);
+	}
+}
+
+t_img	*ft_free_open_img(t_img *img)
+{
+	ft_free_img(img);
+	return (NULL);
+}
+
+t_img	*ft_open_img(void *mlx, char *path)
+{
+	t_img	*img;
+	char	*tmp;
+
+	img = malloc(sizeof(t_img) * 1);
+	if (!img)
+		return (NULL);
+	ft_bzero(img, sizeof(t_img));
+	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
+	if (!img->img)
+		return (ft_free_open_img(img));
+	img->data_addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
+			&(img->line_size), &(img->endian));
+	if (!img->data_addr)
+		return (ft_free_open_img(img));
+	img->pixel_addr = (int *)mlx_get_data_addr(img->img, &(img->bits_per_pixel),
+			&(img->line_size), &(img->endian));
+	if (!img->pixel_addr)
+		return (ft_free_open_img(img));
+	tmp = ft_strdup(path);
+	if (!tmp)
+		return (ft_free_open_img(img));
+	return (img);
+}
+
 void	ft_freeGenStruct(t_cub *cub)
 {
 	if (cub)

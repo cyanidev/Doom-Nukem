@@ -15,13 +15,19 @@
 # include <stdlib.h>
 # include "player.h"
 # include "libft.h"
+# include "image.h"
 
 typedef struct s_cub
 {
 	void			*mlx;
 	void			*mlx_win;
+	t_img			*north;
+	t_img			*south;
+	t_img			*east;
+	t_img			*west;
 	unsigned int	frame;
 	t_player		player;
+	
 }               t_cub;
 
 #endif
