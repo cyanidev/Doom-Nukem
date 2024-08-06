@@ -10,25 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef NPC_H
+# define NPC_H
 # include "point.h"
 
-// TODO I NEED TO CHANGE THIS SECTION TO MATCH PLAYERS ENEMYS AND OTHER SPRITES
-typedef struct s_player
+/*
+	NPC:
+		model: this is the model or sprites from the npc
+
+*/
+typedef struct s_npc
 {
+	void	*model;
 	t_point	pos;
-	float	dx;
-	float	dy;
 	float	angle;
-}		t_player;
+	int		(*start)(struct s_npc, void *);
+	int		(*update)(struct s_npc, void *);
+}		t_npc;
 
-// seters Player
-void	setPlayerA(float angle);
-void	setPlayerPos(t_point pos);
-
-// getters Player
-t_point	getPlayerPos(void);
-float	getPlayerA(void);
+// npc Constructor
+t_npc		*newNpc(void *model, t_point pos, float angle);
+void		freeNpc(t_npc *npc);
 
 #endif

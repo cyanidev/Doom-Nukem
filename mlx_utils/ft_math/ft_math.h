@@ -8,4 +8,5 @@
 float	fx_cos(float angle);
 float	fx_sin(float angle);
 
+float	fx_angle(float angle);
 #endif

@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cub.h                                           :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 02:02:49 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/05 02:03:30 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/05 02:18:39 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUB_H
-# define FT_CUB_H
-# include <stdlib.h>
-# include "player.h"
-# include "libft.h"
-# include "image.h"
+#ifndef CAMERA_H
+# define CAMERA_H
+# include "point.h"
+# include "screen.h"
 
-typedef struct s_cub
+typedef struct s_camera
 {
-	void			*mlx;
-	void			*mlx_win;
-	t_img			*north;
-	t_img			*south;
-	t_img			*east;
-	t_img			*west;
-	unsigned int	frame;
-	t_player		player;
-	
-}               t_cub;
+	t_point			pos;
+	float			angle;
+	float			fov;
+	t_screen		*screen;
+}		t_camera;
+
+t_camera	*newCamera(t_point pos, float angle, float fov, t_screen *screen);
+void		freeCamera(t_camera *cam);
 
 #endif

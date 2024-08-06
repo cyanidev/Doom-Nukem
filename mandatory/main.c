@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "ft_cub.h"
+#include "cub.h"
 
 void	ft_free_img(t_img *img)
 {
@@ -30,21 +30,16 @@ void	ft_free_img(t_img *img)
 	}
 }
 
+//===========================================================================//
+
 t_img	*ft_free_open_img(t_img *img)
 {
 	ft_free_img(img);
 	return (NULL);
 }
 
-t_img	*ft_open_img(void *mlx, char *path)
+t_img	*ft_open_img_utils(t_img *img, void *mlx, char *path)
 {
-	t_img	*img;
-	char	*tmp;
-
-	img = malloc(sizeof(t_img) * 1);
-	if (!img)
-		return (NULL);
-	ft_bzero(img, sizeof(t_img));
 	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
 	if (!img->img)
 		return (ft_free_open_img(img));
@@ -61,6 +56,23 @@ t_img	*ft_open_img(void *mlx, char *path)
 		return (ft_free_open_img(img));
 	return (img);
 }
+
+t_img	*ft_open_img(void *mlx, char *path)
+{
+	t_img	*img;
+	char	*tmp;
+
+	if (!path)
+		return (NULL);
+	img = malloc(sizeof(t_img) * 1);
+	if (!img)
+		return (NULL);
+	ft_bzero(img, sizeof(t_img));
+	if (!ft_open_img_utils(img, mlx, path))
+		return (NULL);
+}
+
+//===========================================================================//
 
 void	ft_freeGenStruct(t_cub *cub)
 {

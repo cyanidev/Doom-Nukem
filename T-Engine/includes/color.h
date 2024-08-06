@@ -5,6 +5,7 @@
 
 typedef struct s_color
 {
+	int		hex;
 	int		r;
 	int		g;
 	int		b;
