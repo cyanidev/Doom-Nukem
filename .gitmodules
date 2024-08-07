@@ -4,3 +4,6 @@
 [submodule "T-Engine"]
 	path = T-Engine
 	url = https://github.com/Tagamydev/T-Engine.git
+[submodule "libft"]
+	path = libft
+	url = https://github.com/Tagamydev/libft.git
