@@ -1,0 +1,10 @@
+modules
+
+Libft
+	resolve module printf confict
+
+mlx_utils
+	copy and adapt code from cub3d repository
+
+T-Engine
+	make headers defined funtions

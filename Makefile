@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/07 18:18:15 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/07 18:40:26 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,35 +53,10 @@ title:
 	@echo ""
 
 #===================================================================================================================
-#												Git Submodule Workflow
-#===================================================================================================================
-
-submodules: .submodule-init .mlx_utils .libft .T-Engine
-	@echo "All submodules loaded..."
-
-.submodule-init:
-	@git submodule update --init --recursive
-	@git submodule update --recursive --remote
-	@touch .submodule-init
-
-.mlx_utils:
-	@make -sC ./mlx_utils/ all
-	@touch .mlx_utils
-
-.libft:
-	@make -sC ./libft/ all
-	@touch .libft
-
-.T-Engine:
-	@make -sC ./T-Engine/ all
-	@touch .T-Engine
-
-
-#===================================================================================================================
 #									Git Submodule Workflow 4 ADD COMMIT and PUSH
 #===================================================================================================================
 
-add: fclean
+add: .submodule-init fclean
 	@make -sC ./T-Engine/ add
 	@make -sC ./mlx_utils/ add
 	@make -sC ./libft/ add
@@ -116,6 +91,29 @@ pull:
 	git pull
 
 #===================================================================================================================
+#												Git Submodule Workflow
+#===================================================================================================================
+
+submodules: .submodule-init .mlx_utils .libft .T-Engine
+	@echo "All submodules loaded..."
+
+.submodule-init:
+	@git submodule update --init --recursive
+	@git submodule update --recursive --remote
+	@touch .submodule-init
+
+.mlx_utils:
+	@make -sC ./mlx_utils/ all
+	@touch .mlx_utils
+
+.libft:
+	@make -sC ./libft/ all
+	@touch .libft
+
+.T-Engine:
+	@make -sC ./T-Engine/ all
+	@touch .T-Engine
+
 #===================================================================================================================
 
 .mandatory: .mlx $(OBJS)
