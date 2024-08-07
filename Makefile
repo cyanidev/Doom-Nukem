@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/05 02:51:27 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/07 18:18:15 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME		= cub3d
 COMMIT_D	:= $(shell date)
 COMMIT_U	:= ${USER}
 CFLAGS		= 
-INC			= -I./includes/ -I./libft/
+INC			= -I./includes/ 
+INC			+= -I./libft/ 
+INC			+= -I./mlx_utils/ 
+INC			+= -I./T-Engine/ 
 INC			+= -I/usr/include -O3 -I./minilibx-linux/ 
 LIBFT		= -L./libft/ -lft 
 CC			= gcc $(CFLAGS)
