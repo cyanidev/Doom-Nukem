@@ -1,9 +1,6 @@
 [submodule "mlx_utils"]
 	path = mlx_utils
 	url = https://github.com/Tagamydev/mlx_utils.git
-[submodule "libft"]
-	path = libft
-	url = https://github.com/Tagamydev/libft.git
 [submodule "T-Engine"]
 	path = T-Engine
 	url = https://github.com/Tagamydev/T-Engine.git
