@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   screen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/05 02:02:49 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/05 02:18:39 by samusanc         ###   ########.fr       */
+/*   Created: 2024/08/07 13:16:55 by samusanc          #+#    #+#             */
+/*   Updated: 2024/08/07 13:19:08 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCREEN_H
-# define SCREEN_H
-# include <stdio.h>
-# include "resolution.h"
+#include "screen.h"
 
-/*
-	Screen struct works like an object
-	Is highly recommended to use it with 
-	screen custom funtions:
-*/
-typedef struct s_screen
+t_screen	*newScreen(t_resolution resolution)
 {
-	int				*pixels;
-	t_resolution	resolution;
-}		t_screen;
+	(void)resolution;
+	printf("test new Screen funtion\n");
+	return (NULL);
 
-t_screen	*newScreen(t_resolution resolution);
-void		*freeScreen(t_screen *screen);
+}
 
-#endif
