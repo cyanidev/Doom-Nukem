@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/07 18:40:26 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/08 21:09:21 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ title:
 #									Git Submodule Workflow 4 ADD
 #===================================================================================================================
 
-add: .submodule-init fclean
+add: fclean .submodule-init
 	@git pull
 	@git add .
 
