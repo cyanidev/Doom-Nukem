@@ -53,42 +53,13 @@ title:
 	@echo ""
 
 #===================================================================================================================
-#									Git Submodule Workflow 4 ADD COMMIT and PUSH
+#									Git Submodule Workflow 4 ADD
 #===================================================================================================================
 
 add: .submodule-init fclean
-	@make -sC ./T-Engine/ add
-	@make -sC ./mlx_utils/ add
-	@make -sC ./libft/ add
 	@git pull
 	@git add .
 
-commit:
-	@cp .TODO ./T-Engine/
-	@cp .TODO ./mlx_utils/
-	@cp .TODO ./libft/
-	@make -sC ./T-Engine/ commit
-	@make -sC ./mlx_utils/ commit
-	@make -sC ./libft/ commit
-	@rm .-rf /T-Engine/.TODO
-	@rm .-rf /mlx_utils/.TODO
-	@rm .-rf /libft/.TODO
-	@cp .TODO .TODO.tmp
-	sed -i '1s/^/$(COMMIT_D) by $(COMMIT_U)\n/' .TODO.tmp
-	git commit -F .TODO.tmp 
-	@rm -rf .TODO.tmp
-
-push: pull
-	@make -sC ./T-Engine/ push
-	@make -sC ./mlx_utils/ push
-	@make -sC ./libft/ push
-	git push
-
-pull:
-	@make -sC ./T-Engine/ pull
-	@make -sC ./mlx_utils/ pull
-	@make -sC ./libft/ pull
-	git pull
 
 #===================================================================================================================
 #												Git Submodule Workflow
@@ -157,4 +128,4 @@ clean: .clean
 	@rm -rf $(B_O_DIR)
 	@touch .clean
 
-.PHONY: all title bonus clean fclean re submodules add commit push pull
+.PHONY: all title bonus clean fclean re submodules add 
