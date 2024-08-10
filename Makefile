@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/10 22:16:29 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/10 22:21:13 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,12 @@ CFLAGS		=
 
 INC			= -I./includes/ 
 INC			+= -I./libft/ 
-INC			+= -I./mlx_utils/includes
-INC			+= -I./mlx_utils/includes
-INC			+= -I./T-Engine/includes 
-INC			+= -I./T-Engine/includes 
+INC			+= -I./mlx_utils/ 
+INC			+= -I./mlx_utils/includes/ 
+INC			+= -I./T-Engine/ 
+INC			+= -I./T-Engine/includes/ 
+INC			+= -I./ft_math/
+INC			+= -I./ft_math/includes/
 INC			+= -I/usr/include -O3 -I./minilibx-linux/ 
 
 #============================== LIBRARIES ===============================#
@@ -86,7 +88,7 @@ push: commit
 
 #============================= SUBMODULES =============================#
 
-submodules: .submodule-init .mlx_utils .libft .T-Engine
+submodules: .submodule-init .mlx_utils .libft .T-Engine .ft_math
 	@echo "All submodules loaded..."
 
 .submodule-init:
@@ -106,6 +108,10 @@ submodules: .submodule-init .mlx_utils .libft .T-Engine
 	@make -sC ./T-Engine/ all
 	@touch .T-Engine
 
+.ft_math:
+	@make -sC ./ft_math/ all
+	@touch .ft_math
+
 #======================= MANDATORY AND BONUS =========================#
 
 .mandatory: .mlx $(OBJS)
@@ -123,6 +129,7 @@ fclean: clean
 	@make -sC ./libft/ fclean
 	@make -sC ./T-Engine/ fclean
 	@make -sC ./mlx_utils/ fclean
+	@make -sC ./ft_math/ fclean
 	@rm -f $(NAME)
 	@rm -f $(NAME)_bonus
 	@rm -rf .bonus
@@ -133,6 +140,7 @@ fclean: clean
 	@rm -rf .mlx_utils
 	@rm -rf .libft
 	@rm -rf .T-Engine
+	@rm -rf .ft_math
 
 clean: .clean
 	@echo "objects removed!"
@@ -143,6 +151,7 @@ clean: .clean
 	@make -sC ./libft/ clean
 	@make -sC ./T-Engine/ clean
 	@make -sC ./mlx_utils/ clean
+	@make -sC ./ft_math/ clean
 	@rm -f $(OBJS)
 	@rm -f $(B_OBJS)
 	@rm -rf $(O_DIR)

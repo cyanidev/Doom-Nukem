@@ -13,15 +13,19 @@
 #ifndef CUB_H
 # define CUB_H
 # include <stdlib.h>
-# include "player.h"
 # include "libft.h"
-# include "image.h"
+# include "T_Engine.h"
+# include "mlx_utils.h"
+# ifndef	BONUS
+#  define BONUS 1
+# endif
 
 typedef struct s_cub
 {
 	void			*mlx;
 	void			*mlx_win;
 	unsigned int	frame;
+	float			deltaTime;
 	t_img			*north;
 	t_img			*south;
 	t_img			*east;

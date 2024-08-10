@@ -6,7 +6,7 @@
 /*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 22:32:43 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/04 22:32:44 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/10 22:22:35 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_free_img(t_img *img)
 }
 
 //===========================================================================//
+//======================== OPEN IMAGE FT ===================================//
 
 t_img	*ft_free_open_img(t_img *img)
 {
@@ -40,6 +41,9 @@ t_img	*ft_free_open_img(t_img *img)
 
 t_img	*ft_open_img_utils(t_img *img, void *mlx, char *path)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
 	if (!img->img)
 		return (ft_free_open_img(img));
@@ -82,7 +86,15 @@ void	ft_freeGenStruct(t_cub *cub)
 			free(cub->mlx);
 		if (cub->mlx_win)
 			free(cub->mlx_win);
-		
+
+		if (cub->north)
+			ft_free_img(cub->north);
+		if (cub->south)
+			ft_free_img(cub->south);
+		if (cub->east)
+			ft_free_img(cub->east);
+		if (cub->west)
+			ft_free_img(cub->west);
 
 		ft_bzero(cub, sizeof(t_cub));
 		free(cub);
@@ -95,17 +107,27 @@ int	ft_iGSError(t_cub *cub)
 	return (0);
 }
 
+int	openWallTex(t_cub *cub)
+{
+	cub->north = ft_open_img(cub->mlx, "");
+	cub->south = ft_open_img(cub->mlx, "");
+	cub->east = ft_open_img(cub->mlx, "");
+	cub->west = ft_open_img(cub->mlx, "");
+}
+
 /*
 	TODO: I want to implement the window array for a window managment system,
 	so the general structure might change in the future
 */
-int	ft_initGenStruct(t_cub *cub)
+int	ft_initGenStruct(t_cub *cub, char *map_path)
 {
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		return (ft_iGSError(cub));
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
+		return (ft_iGSError(cub));
+	if (!openWallTex(cub))
 		return (ft_iGSError(cub));
 	return (1);
 }
@@ -117,7 +139,7 @@ int	ft_initGenStruct(t_cub *cub)
 	After bzero every error in funtion have to use the ft_freeGenStruct for error handling
 	and return NULL after that
 */
-t_cub	*ft_constructor()
+t_cub	*ft_constructor(char *map_path)
 {
 	t_cub	*result;
 
@@ -125,7 +147,7 @@ t_cub	*ft_constructor()
 	if (!result)
 		return (NULL);
 	ft_bzero(result, sizeof(t_cub));
-	if (!ft_initGenStruct(result))
+	if (!ft_initGenStruct(result, map_path))
 		return (NULL);
 	return (result);
 }
@@ -139,11 +161,19 @@ int	ft_drawFrame(void *p_cub)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_cub	*cub;
 
-	cub = ft_constructor();
+	if (argc > 2 || (argc < 2 && !BONUS))
+	{
+		write(2, "Error: wrong number of arguments\n", 34);
+		return (-1);
+	}
+
+
+	//cub = ft_constructor();
+	cub = NULL;
 	if (!cub)
 	{
 		write(2, "Error: cannot initialize the general struct\n", 45);
