@@ -6,7 +6,7 @@
 #    By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 01:22:18 by samusanc          #+#    #+#              #
-#    Updated: 2024/08/09 18:59:31 by samusanc         ###   ########.fr        #
+#    Updated: 2024/08/10 21:57:16 by samusanc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,32 @@ NAME		= cub3d
 COMMIT_D	:= $(shell date)
 COMMIT_U	:= ${USER}
 CFLAGS		= 
+
+#=============================== INCLUDES ===============================#
+
 INC			= -I./includes/ 
 INC			+= -I./libft/ 
-INC			+= -I./mlx_utils/ 
-INC			+= -I./T-Engine/ 
+INC			+= -I./mlx_utils/includes
+INC			+= -I./mlx_utils/includes
+INC			+= -I./T-Engine/includes 
+INC			+= -I./T-Engine/includes 
 INC			+= -I/usr/include -O3 -I./minilibx-linux/ 
+
+#============================== LIBRARIES ===============================#
+
 LIBFT		= -L./libft/ -lft 
 CC			= gcc $(CFLAGS)
 
+#================================= SCRS =================================#
+
 SRCS		= ./mandatory/main.c
+
+
 O_DIR		= ./objects/
 OBJS		= $(addprefix $(O_DIR)/, $(SRCS:.c=.o))
+
+#========================================================================#
+#========================================================================#
 
 $(O_DIR)/%.o: %.c
 	@mkdir -p $(@D)
@@ -52,18 +67,13 @@ title:
 	@echo "Graphics:samusanc, Parsing:afelicia"
 	@echo ""
 
-#===================================================================================================================
-#									Git Submodule Workflow 4 ADD
-#===================================================================================================================
+#============================= GIT RULES ==============================#
 
 add: fclean .submodule-init
 	@git pull
 	@git add .
 
-
-#===================================================================================================================
-#												Git Submodule Workflow
-#===================================================================================================================
+#============================= SUBMODULES =============================#
 
 submodules: .submodule-init .mlx_utils .libft .T-Engine
 	@echo "All submodules loaded..."
@@ -85,7 +95,8 @@ submodules: .submodule-init .mlx_utils .libft .T-Engine
 	@make -sC ./T-Engine/ all
 	@touch .T-Engine
 
-#===================================================================================================================
+
+#======================= MANDATORY AND BONUS =========================#
 
 .mandatory: .mlx $(OBJS)
 	$(CC) -o $(NAME) $(OBJS) $(LIBFT) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
