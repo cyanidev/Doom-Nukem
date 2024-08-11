@@ -13,7 +13,6 @@
 NAME		= cub3d
 COMMIT_D	:= $(shell date)
 COMMIT_U	:= ${USER}
-CFLAGS		= 
 
 #=============================== INCLUDES ===============================#
 
@@ -29,27 +28,33 @@ INC			+= -I/usr/include -O3 -I./minilibx-linux/
 
 #============================== LIBRARIES ===============================#
 
-LIBFT		= -L./libft/ -lft 
-LIBFT		+= -L./mlx_utils/ -lmlx_utils
-LIBFT		+= -L./T-Engine/ -lT_Engine
-LIBFT		+= -L./ft_math/ -lft_math
+# SUBMODULES .a LIBRARIES
+SUBMODLIB	= ./libft/libft.a
+SUBMODLIB	+= ./T-Enigne/libT_Engine.a
+SUBMODLIB	+= ./ft_math/libft_math.a
+SUBMODLIB	+= ./mlx_utils/libmlx_utils.a
 
-CC			= gcc $(CFLAGS)
+#================================= GCC ==================================#
+
+# GCC WITH LIBS AND INCLUDES
+CFLAGS		= -Wall -Wextra -Werror
+CC			= gcc $(CFLAGS) $(INC) $(SUBMODLIB)
 
 #================================= SCRS =================================#
 
 SRCS		= ./mandatory/main.c
 
 
+#================================= OBJS =================================#
+
 O_DIR		= ./objects/
 OBJS		= $(addprefix $(O_DIR)/, $(SRCS:.c=.o))
 
 #========================================================================#
-#========================================================================#
 
 $(O_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) -D BONUS=0 $(LIBFT) $(INC) -g -c $< -o $(O_DIR)/$(<:.c=.o)
+	$(CC) -D BONUS=0 $(INC) -g -c $< -o $(O_DIR)/$(<:.c=.o)
 	@echo ""
 
 all: title submodules $(NAME)
@@ -92,7 +97,7 @@ push: commit
 
 #============================= SUBMODULES =============================#
 
-submodules: .submodule-init .mlx_utils .libft .T-Engine .ft_math
+submodules: .submodule-init .make_submodules
 	@echo "All submodules loaded..."
 
 .submodule-init:
@@ -100,26 +105,17 @@ submodules: .submodule-init .mlx_utils .libft .T-Engine .ft_math
 	@git submodule update --recursive --remote
 	@touch .submodule-init
 
-.mlx_utils:
+.make_submodules: 
 	@make -sC ./mlx_utils/ all
-	@touch .mlx_utils
-
-.libft:
 	@make -sC ./libft/ all
-	@touch .libft
-
-.T-Engine:
 	@make -sC ./T-Engine/ all
-	@touch .T-Engine
-
-.ft_math:
 	@make -sC ./ft_math/ all
-	@touch .ft_math
+	@touch .make_submodules
 
 #======================= MANDATORY AND BONUS =========================#
 
-.mandatory: .mlx $(OBJS)
-	$(CC) -o $(NAME) $(OBJS) $(LIBFT) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
+.mandatory: .mlx submodules $(OBJS)
+	$(CC) -o $(NAME) $(OBJS) $(SUBMODLIB) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@touch .mandatory
 
 .mlx:
@@ -130,21 +126,20 @@ re: fclean all
 
 fclean: clean
 	@echo "cleaning binaries..."
-	@make -sC ./libft/ fclean
-	@make -sC ./T-Engine/ fclean
-	@make -sC ./mlx_utils/ fclean
-	@make -sC ./ft_math/ fclean
 	@rm -f $(NAME)
 	@rm -f $(NAME)_bonus
 	@rm -rf .bonus
 	@rm -rf .mandatory
 	@rm -rf .submodule-init
+	@rm -rf .make_submodules
 	@rm -rf .clean
 	@rm -rf .mlx
-	@rm -rf .mlx_utils
-	@rm -rf .libft
-	@rm -rf .T-Engine
-	@rm -rf .ft_math
+
+submodule_fclean:
+	@make -sC ./libft/ fclean
+	@make -sC ./T-Engine/ fclean
+	@make -sC ./mlx_utils/ fclean
+	@make -sC ./ft_math/ fclean
 
 clean: .clean
 	@echo "objects removed!"
@@ -152,14 +147,16 @@ clean: .clean
 .clean: .submodule-init
 	@echo "cleaning objects..."
 	@make -sC ./minilibx-linux/ clean
-	@make -sC ./libft/ clean
-	@make -sC ./T-Engine/ clean
-	@make -sC ./mlx_utils/ clean
-	@make -sC ./ft_math/ clean
 	@rm -f $(OBJS)
 	@rm -f $(B_OBJS)
 	@rm -rf $(O_DIR)
 	@rm -rf $(B_O_DIR)
 	@touch .clean
 
-.PHONY: all title bonus clean fclean re submodules add commit push
+.submodule_clean:
+	@make -sC ./libft/ clean
+	@make -sC ./T-Engine/ clean
+	@make -sC ./mlx_utils/ clean
+	@make -sC ./ft_math/ clean
+
+.PHONY: all clean fclean re title submodules submodule_fclean add commit push
