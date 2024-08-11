@@ -30,15 +30,15 @@ INC			+= -I/usr/include -O3 -I./minilibx-linux/
 
 # SUBMODULES .a LIBRARIES
 SUBMODLIB	= ./libft/libft.a
-SUBMODLIB	+= ./T-Enigne/libT_Engine.a
+SUBMODLIB	+= ./T-Engine/libT_Engine.a
 SUBMODLIB	+= ./ft_math/libft_math.a
 SUBMODLIB	+= ./mlx_utils/libmlx_utils.a
 
 #================================= GCC ==================================#
 
 # GCC WITH LIBS AND INCLUDES
-CFLAGS		= -Wall -Wextra -Werror
-CC			= gcc $(CFLAGS) $(INC) $(SUBMODLIB)
+CFLAGS		= -Wextra
+CC			= gcc $(CFLAGS) $(INC)
 
 #================================= SCRS =================================#
 
