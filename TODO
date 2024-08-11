@@ -57,7 +57,7 @@ typedef struct s_color{
 	float	alpha;
 }		t_color;
 
-ft_color(char *color);
+color(// DO A COLOR ENUM);
 ft_colorFormRGB(int red, int green, int blue);
 ft_colorFormHEX(int color);
 ft_color_mix(ft_color, ft_color, float lerp)

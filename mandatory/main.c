@@ -6,7 +6,7 @@
 /*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 22:32:43 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/10 22:22:35 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/10 23:48:26 by samusanc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ t_img	*ft_open_img(void *mlx, char *path)
 
 //===========================================================================//
 
+
+//===========================================================================//
 void	ft_freeGenStruct(t_cub *cub)
 {
 	if (cub)
@@ -114,6 +116,7 @@ int	openWallTex(t_cub *cub)
 	cub->east = ft_open_img(cub->mlx, "");
 	cub->west = ft_open_img(cub->mlx, "");
 }
+//===========================================================================//
 
 /*
 	TODO: I want to implement the window array for a window managment system,
@@ -126,6 +129,8 @@ int	ft_initGenStruct(t_cub *cub, char *map_path)
 		return (ft_iGSError(cub));
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
+		return (ft_iGSError(cub));
+	if (!parsing(cub, map_path))
 		return (ft_iGSError(cub));
 	if (!openWallTex(cub))
 		return (ft_iGSError(cub));
