@@ -40,6 +40,7 @@ typedef struct s_cub
 	void			*mlx_win;
 	unsigned int	frame;
 	float			delta_time;
+
 	char			*north_path;
 	char			*south_path;
 	char			*east_path;
@@ -48,6 +49,7 @@ typedef struct s_cub
 	t_color			celling;
 	t_mapChunk		**map;
 	t_player		*player;
+
 	t_img			*north;
 	t_img			*south;
 	t_img			*east;

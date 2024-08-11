@@ -30,6 +30,10 @@ INC			+= -I/usr/include -O3 -I./minilibx-linux/
 #============================== LIBRARIES ===============================#
 
 LIBFT		= -L./libft/ -lft 
+LIBFT		+= -L./mlx_utils/ -lmlx_utils
+LIBFT		+= -L./T-Engine/ -lT_Engine
+LIBFT		+= -L./ft_math/ -lft_math
+
 CC			= gcc $(CFLAGS)
 
 #================================= SCRS =================================#

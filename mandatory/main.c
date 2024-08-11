@@ -13,74 +13,12 @@
 #include "mlx.h"
 #include "cub.h"
 
-void	ft_free_img(t_img *img)
-{
-	if (img)
-	{
-		if (img->img)
-			free(img->img);
-		if (img->path)
-			free(img->path);
-		if (img->data_addr)
-			free(img->data_addr);
-		if (img->pixel_addr)
-			free(img->pixel_addr);
-		ft_bzero(img, sizeof(t_img));
-		free(img);
-	}
-}
-
-//===========================================================================//
-//======================== OPEN IMAGE FT ===================================//
-
-t_img	*ft_free_open_img(t_img *img)
-{
-	ft_free_img(img);
-	return (NULL);
-}
-
-t_img	*ft_open_img_utils(t_img *img, void *mlx, char *path)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	img->img = mlx_xpm_file_to_image(mlx, path, &img->width, &img->height);
-	if (!img->img)
-		return (ft_free_open_img(img));
-	img->data_addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
-			&(img->line_size), &(img->endian));
-	if (!img->data_addr)
-		return (ft_free_open_img(img));
-	img->pixel_addr = (int *)mlx_get_data_addr(img->img, &(img->bits_per_pixel),
-			&(img->line_size), &(img->endian));
-	if (!img->pixel_addr)
-		return (ft_free_open_img(img));
-	tmp = ft_strdup(path);
-	if (!tmp)
-		return (ft_free_open_img(img));
-	return (img);
-}
-
-t_img	*ft_open_img(void *mlx, char *path)
-{
-	t_img	*img;
-	char	*tmp;
-
-	if (!path)
-		return (NULL);
-	img = malloc(sizeof(t_img) * 1);
-	if (!img)
-		return (NULL);
-	ft_bzero(img, sizeof(t_img));
-	if (!ft_open_img_utils(img, mlx, path))
-		return (NULL);
-}
 
 //===========================================================================//
 
 
 //===========================================================================//
-void	ft_freeGenStruct(t_cub *cub)
+void	freeGenStruct(t_cub *cub)
 {
 	if (cub)
 	{		
@@ -89,51 +27,79 @@ void	ft_freeGenStruct(t_cub *cub)
 		if (cub->mlx_win)
 			free(cub->mlx_win);
 
+		if (cub->north_path)
+			free(cub->north_path);
+		if (cub->south_path)
+			free(cub->south_path);
+		if (cub->east_path)
+			free(cub->east_path);
+		if (cub->west_path)
+			free(cub->west_path);
+
+		/*
+		
+		if (map)
+			afeliciaFreeMap();
+
+		*/
+		if (cub->player)
+			;//
+
 		if (cub->north)
-			ft_free_img(cub->north);
+			freeImg(cub->north);
 		if (cub->south)
-			ft_free_img(cub->south);
+			freeImg(cub->south);
 		if (cub->east)
-			ft_free_img(cub->east);
+			freeImg(cub->east);
 		if (cub->west)
-			ft_free_img(cub->west);
+			freeImg(cub->west);
 
 		ft_bzero(cub, sizeof(t_cub));
 		free(cub);
 	}
 }
 
-int	ft_iGSError(t_cub *cub)
+int	iGSError(t_cub *cub)
 {
-	ft_freeGenStruct(cub);
+	freeGenStruct(cub);
 	return (0);
 }
 
 int	openWallTex(t_cub *cub)
 {
-	cub->north = ft_open_img(cub->mlx, "");
-	cub->south = ft_open_img(cub->mlx, "");
-	cub->east = ft_open_img(cub->mlx, "");
-	cub->west = ft_open_img(cub->mlx, "");
+	cub->north = openImg(cub->mlx, "");
+	if (!cub->north)
+		return (0);
+	cub->south = openImg(cub->mlx, "");
+	if (!cub->south)
+		return (0);
+	cub->east = openImg(cub->mlx, "");
+	if (!cub->east)
+		return (0);
+	cub->west = openImg(cub->mlx, "");
+	if (!cub->west)
+		return (0);
+	return (1);
 }
+
 //===========================================================================//
 
 /*
 	TODO: I want to implement the window array for a window managment system,
 	so the general structure might change in the future
 */
-int	ft_initGenStruct(t_cub *cub, char *map_path)
+int	initGenStruct(t_cub *cub, char *map_path)
 {
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
-		return (ft_iGSError(cub));
+		return (iGSError(cub));
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
-		return (ft_iGSError(cub));
+		return (iGSError(cub));
 	if (!parsing(cub, map_path))
-		return (ft_iGSError(cub));
+		return (iGSError(cub));
 	if (!openWallTex(cub))
-		return (ft_iGSError(cub));
+		return (iGSError(cub));
 	return (1);
 }
 
@@ -152,7 +118,7 @@ t_cub	*ft_constructor(char *map_path)
 	if (!result)
 		return (NULL);
 	ft_bzero(result, sizeof(t_cub));
-	if (!ft_initGenStruct(result, map_path))
+	if (!initGenStruct(result, map_path))
 		return (NULL);
 	return (result);
 }
@@ -177,8 +143,7 @@ int	main(int argc, char **argv)
 	}
 
 
-	//cub = ft_constructor();
-	cub = NULL;
+	cub = ft_constructor(argv[2]);
 	if (!cub)
 	{
 		write(2, "Error: cannot initialize the general struct\n", 45);
