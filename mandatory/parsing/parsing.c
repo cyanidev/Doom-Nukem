@@ -148,31 +148,21 @@ int parsCol(t_cub *cub, char *map_path)
 	the cub struct memebers for this part:
 
 		**
-			Context, here is one chunk of the map
-			typedef enum e_structType
-			{
-				Empty,
-				Floor,
-				Wall,
-				Door
-			}			t_structType;
-			
-			typedef struct s_mapChunk
-			{
-				t_structType	type;
-				unsigned int	light;
-			}				t_mapChunk;
-
 		**
 		typedef struct s_cub
 		{
 
-			t_mapChunk		**map;
+			char		**map;
 
 		}				t_cub;
 
 	What you need to do:
 		the most dificult part, here you need to parse the map
+
+		you have to use the next symbols to store the values
+		FLOOR = '0'
+		WALL = '1'
+		EMPTY = 'E'
 
 		the map need to be a rectagle shape
 		so your task is allocate and fill the map with the "Empty" the empty spaces to match an rectangle 
@@ -183,14 +173,18 @@ int parsCol(t_cub *cub, char *map_path)
 			1111100001
 			1111111111
 		this should transform into this
-			WWWWWWWEEE
-			WFFFFFWEEE
-			WWWWWFWWWW
-			WWWWWFFFFW
-			WWWWWWWWWW
+			1111111EEE
+			1000001EEE
+			1111101111
+			1111100001
+			1111111111
 		(the player == Empty) you have to save the position in the parsPlayer funtion
 		you can store the position and direction of the player temp or can you call to your parsPlayer funtion here, the choice is yours
-		you will save the map in a double array of t_mapChunk
+		you will save the map in a double array of chars
+		you have to use the next symbols to store the values
+		FLOOR = '0'
+		WALL = '1'
+		EMPTY = 'E'
 		in the next order
 		map[x][y]
 		that means if i want to check the point x:10 y: 3
@@ -200,10 +194,9 @@ int parsCol(t_cub *cub, char *map_path)
 		ask to lyandriy, she make this so easy. I dont remember well the algorithm but my guess is this:
 		She check if a Floor (F) is soround by another (F) or a Wall (W) if it was anything else *aka empty(E)*, you can throw an error in parsing, 
 
+
 		the doors only are valid during the bonus.
 		check the doors with if (!BONUS) BONUS define should be 1 if we are compiling the bonus and should be zero if we are not.
-
-		PD: dont worry about the light parameter in the chunk!
 
 */
 int parsMap(t_cub *cub, char *map_path)

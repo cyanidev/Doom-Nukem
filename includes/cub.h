@@ -47,7 +47,7 @@ typedef struct s_cub
 	char			*west_path;
 	t_color			floor;
 	t_color			celling;
-	t_mapChunk		**map;
+	char			**map;
 	t_player		*player;
 
 	t_img			*north;
