@@ -146,8 +146,9 @@ int	main(int argc, char **argv)
 
 
 	cub = ft_constructor(argv[2]);
-	cub->tmp = initImg(cub->mlx, resolution(1920, 1080));
+	cub->tmp = initImg(cub->mlx, resolution(2000, 1100));
 	fillImg(cub->tmp, color(red));
+	drawLine(point(0, 0), point(2000, 1100), cub->tmp);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 	if (!cub)
 	{
@@ -155,6 +156,5 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	mlx_loop_hook(cub->mlx, ft_drawFrame, cub);
-	ft_printf("yes 6\n");
 	mlx_loop(cub->mlx);
 }
