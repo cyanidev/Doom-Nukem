@@ -41,6 +41,8 @@ typedef struct s_cub
 	unsigned int	frame;
 	float			delta_time;
 
+	t_img			*tmp;
+
 	char			*north_path;
 	char			*south_path;
 	char			*east_path;

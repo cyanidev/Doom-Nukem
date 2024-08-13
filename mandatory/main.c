@@ -67,6 +67,7 @@ int	iGSError(t_cub *cub)
 
 int	openWallTex(t_cub *cub)
 {
+	/*
 	cub->north = openImg(cub->mlx, "");
 	if (!cub->north)
 		return (0);
@@ -79,6 +80,7 @@ int	openWallTex(t_cub *cub)
 	cub->west = openImg(cub->mlx, "");
 	if (!cub->west)
 		return (0);
+	*/
 	return (1);
 }
 
@@ -144,6 +146,7 @@ int	main(int argc, char **argv)
 
 
 	cub = ft_constructor(argv[2]);
+	cub->tmp = initImg(cub->mlx, resolution(1920, 1080));
 	if (!cub)
 	{
 		write(2, "Error: cannot initialize the general struct\n", 45);

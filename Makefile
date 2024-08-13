@@ -42,8 +42,9 @@ CC			= gcc $(CFLAGS) $(INC)
 
 #================================= SCRS =================================#
 
-SRCS		= ./mandatory/main.c
-
+SRCS		= \
+				./mandatory/main.c \
+				./mandatory/parsing/parsing.c 
 
 #================================= OBJS =================================#
 
