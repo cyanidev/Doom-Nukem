@@ -95,6 +95,7 @@ int	initGenStruct(t_cub *cub, char *map_path)
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		return (iGSError(cub));
+	// CHANGE THIS RESOLUTION AFTER!!!!
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
 		return (iGSError(cub));
@@ -134,20 +135,61 @@ int	ft_drawFrame(void *p_cub)
 	return (0);
 }
 
-t_point	getBounds(t_line *segments, unsigned int size)
+
+t_point	getBoundsMax(t_line tmp, t_point max)
+{
+	if (tmp.a.px > max.px)
+		max.px = tmp.a.px;
+	if (tmp.b.px > max.px)
+		max.px = tmp.b.px;
+	if (tmp.a.py > max.py)
+		max.py = tmp.a.py;
+	if (tmp.b.py > max.py)
+		max.py = tmp.b.py;
+	return (max);
+}
+
+t_point	getBoundsMin(t_line tmp, t_point max)
+{
+	if (tmp.a.px < max.px)
+		max.px = tmp.a.px;
+	if (tmp.b.px < max.px)
+		max.px = tmp.b.px;
+	if (tmp.a.py < max.py)
+		max.py = tmp.a.py;
+	if (tmp.b.py < max.py)
+		max.py = tmp.b.py;
+	return (max);
+}
+
+t_line	getBounds(t_line *segments, unsigned int size)
 {
 	unsigned int	i;
-	float			max_x;
-	float			max_y;
+	t_point			max;
+	t_point			min;
 
 	i = 0;
-	max_x = FLT_MIN;
+	max = point(FLT_MIN, FLT_MIN);
+	min = point(FLT_MAX, FLT_MAX);
 	while (i < size)
 	{
-
+		max = getBoundsMax(segments[i], max);
+		min = getBoundsMin(segments[i], min);
 		i++;
 	}
-	return ();
+	return (line(max, min));
+}
+
+t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offset)
+{
+	t_point	result;
+	float	resultx;
+	float	resulty;
+
+	// 									this can be cut and passed as parameter, optimization!!!
+	resultx = (pt.px - bounds.b.px) * (map_offset.width - offset) / (bounds.a.px - bounds.b.px) + offset;
+	resulty = (pt.py - bounds.b.py) * (map_offset.height - offset) / (bounds.a.py - bounds.b.py) + offset;
+	return (point(resultx, resulty));
 }
 
 int	main(int argc, char **argv)
@@ -162,10 +204,11 @@ int	main(int argc, char **argv)
 
 
 	cub = ft_constructor(argv[2]);
-	cub->tmp = initImg(cub->mlx, resolution(2000, 1100));
-	fillImg(cub->tmp, color(red));
-	drawLine(point(0, 0), point(2000, 1100), cub->tmp);
 	//================================================================================
+
+	cub->tmp = initImg(cub->mlx, resolution(1920, 1080));
+	fillImg(cub->tmp, color(red));
+	//drawLine(point(0, 0), point(2000, 1100), cub->tmp);
 
 	t_line	segments[4];
 
@@ -174,7 +217,31 @@ int	main(int argc, char **argv)
 	segments[2] = line(point(7, 8), point(1, 8));
 	segments[3] = line(point(1, 8), point(1, 1));
 
+	t_line			bounds;
+	int				screen_offset;
+	t_resolution	map_acot;
+
+	screen_offset = 50;
+	map_acot = resolution(cub->tmp->resolution.width - screen_offset, cub->tmp->resolution.height - screen_offset);
+	bounds = getBounds(segments, 4);
+	printf("BOUNDS: \nmax:%f, %f\nmin: %f, %f\n", bounds.a.px, bounds.a.py, bounds.b.px, bounds.b.py);
+	int i = 0;
+	while (i < 4)
+	{
+		t_point	tmp1;
+		t_point	tmp2;
+
+		tmp1 = segments[i].a;
+		tmp2 = segments[i].b;
+		tmp1 = remapPoint(tmp1, bounds, map_acot, 50);
+		tmp2 = remapPoint(tmp2, bounds, map_acot, 50);
+		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp1.px, (int)tmp1.py);
+		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp2.px, (int)tmp2.py);
+		drawLine(tmp1, tmp2, cub->tmp);
+		i++;
+	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
+
 	if (!cub)
 	{
 		write(2, "Error: cannot initialize the general struct\n", 45);
