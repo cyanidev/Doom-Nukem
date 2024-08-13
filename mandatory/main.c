@@ -134,6 +134,22 @@ int	ft_drawFrame(void *p_cub)
 	return (0);
 }
 
+t_point	getBounds(t_line *segments, unsigned int size)
+{
+	unsigned int	i;
+	float			max_x;
+	float			max_y;
+
+	i = 0;
+	max_x = FLT_MIN;
+	while (i < size)
+	{
+
+		i++;
+	}
+	return ();
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
@@ -149,6 +165,15 @@ int	main(int argc, char **argv)
 	cub->tmp = initImg(cub->mlx, resolution(2000, 1100));
 	fillImg(cub->tmp, color(red));
 	drawLine(point(0, 0), point(2000, 1100), cub->tmp);
+	//================================================================================
+
+	t_line	segments[4];
+
+	segments[0] = line(point(1, 1), point(7, 1));
+	segments[1] = line(point(7, 1), point(7, 8));
+	segments[2] = line(point(7, 8), point(1, 8));
+	segments[3] = line(point(1, 8), point(1, 1));
+
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 	if (!cub)
 	{
