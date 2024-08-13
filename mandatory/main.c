@@ -192,6 +192,19 @@ t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offse
 	return (point(resultx, resulty));
 }
 
+void	drawNormal(t_line line)
+{
+	t_point	pr;
+	t_point	normal;
+
+	pr = line.a;
+	pr.px = line.b.px - line.a.px;
+	pr.py = line.b.py - line.a.py;
+	normal = normalize(pr);
+
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
