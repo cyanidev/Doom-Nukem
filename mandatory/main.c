@@ -147,11 +147,14 @@ int	main(int argc, char **argv)
 
 	cub = ft_constructor(argv[2]);
 	cub->tmp = initImg(cub->mlx, resolution(1920, 1080));
+	fillImg(cub->tmp, color(red));
+	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 	if (!cub)
 	{
 		write(2, "Error: cannot initialize the general struct\n", 45);
 		return (-1);
 	}
 	mlx_loop_hook(cub->mlx, ft_drawFrame, cub);
+	ft_printf("yes 6\n");
 	mlx_loop(cub->mlx);
 }
