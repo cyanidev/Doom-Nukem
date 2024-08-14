@@ -236,6 +236,12 @@ t_segment	*segment(t_line line)
 	return (result);
 }
 
+void	*default_node_free(void *ptr)
+{
+	free(ptr);
+	return (NULL);
+}
+
 //=================================================== segment in engine
 
 //=============================================BSP IN ENGINE
@@ -270,7 +276,8 @@ int	main(int argc, char **argv)
 	t_list	segments;
 
 	segments = list(NULL);
-	list_push_b(&segments, node(segment(line(point(1,1), point(7,1))), NULL));
+	list_push_b(&segments, node(segment(line(point(1,1), point(7,1))), &default_node_free));
+	list_clear(&segments);
 	ft_printf("segments: %p, %p, %d\n", segments.head, segments.tail, segments.size);
 	/*
 	t_line	segments[4];

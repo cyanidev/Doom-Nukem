@@ -116,6 +116,7 @@ submodules: .submodule-init .make_submodules
 #======================= MANDATORY AND BONUS =========================#
 
 .mandatory: .mlx submodules $(OBJS)
+	@make -sC ./minilibx-linux/ all
 	$(CC) -o $(NAME) $(OBJS) $(SUBMODLIB) -L./minilibx-linux/ -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
 	@touch .mandatory
 
