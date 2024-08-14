@@ -192,7 +192,7 @@ t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offse
 	return (point(resultx, resulty));
 }
 
-void	drawNormal(t_line line)
+void	drawNormal(t_line line, t_img *img)
 {
 	t_point	p10;
 	t_point	p0;
@@ -205,8 +205,9 @@ void	drawNormal(t_line line)
 	normal = normalize(point(-p10.py, p10.px));
 	p0.px = (line.a.px + line.b.px) * 0.5f;
 	p0.py = (line.a.py + line.b.py) * 0.5f;
-	p1.px = (p0.px + normal.px) * 12.0f;
-	p1.py = (p0.py + normal.py) * 12.0f;
+	p1.px = p0.px + normal.px * 12.0f;
+	p1.py = p0.py + normal.py * 12.0f;
+	drawLine(p0, p1, img);
 }
 
 int	main(int argc, char **argv)
@@ -255,6 +256,7 @@ int	main(int argc, char **argv)
 		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp1.px, (int)tmp1.py);
 		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp2.px, (int)tmp2.py);
 		drawLine(tmp1, tmp2, cub->tmp);
+		drawNormal(line(tmp1, tmp2), cub->tmp);
 		i++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
