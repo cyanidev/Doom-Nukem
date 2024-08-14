@@ -1,16 +1,8 @@
 modules
 
+make lines more thick
+resolve the color lines problem
 
-When download the ropository make fails, check out that latter
-
-Libft
-	resolve module printf confict
-
-mlx_utils
-	copy and adapt code from cub3d repository
-
-T-Engine
-	make headers defined funtions
 
 
 
