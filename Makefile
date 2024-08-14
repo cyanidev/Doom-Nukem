@@ -145,7 +145,7 @@ submodule_fclean:
 clean: .clean
 	@echo "objects removed!"
 
-.clean: .submodule-init
+.clean: .mlx .submodule-init
 	@echo "cleaning objects..."
 	@make -sC ./minilibx-linux/ clean
 	@rm -f $(OBJS)

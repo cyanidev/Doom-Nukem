@@ -210,6 +210,43 @@ void	drawNormal(t_line line, t_img *img)
 	drawLine(p0, p1, img);
 }
 
+
+//=================================================== segment in engine
+
+typedef	struct s_segment
+{
+	t_line	segment;
+	t_point	vector;
+}				t_segment;
+
+t_segment	segment(t_line line)
+{
+	t_segment	result;
+	t_point		a;
+	t_point		b;
+
+	result.segment = line;
+	a = line.a;
+	b = line.b;
+	a.px = b.px - a.px;
+	a.py = b.py - a.py;
+	result.vector = a;
+	return (result);
+}
+
+//=================================================== segment in engine
+
+//=============================================BSP IN ENGINE
+
+typedef struct s_BSP
+{
+	struct s_BSP	*front;
+	struct s_BSP	*back;
+	t_segment		splitter;
+}				t_BSP;
+
+//=============================================BSP IN ENGINE
+
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
