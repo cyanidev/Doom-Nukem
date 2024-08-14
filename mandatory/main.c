@@ -219,18 +219,20 @@ typedef	struct s_segment
 	t_point	vector;
 }				t_segment;
 
-t_segment	segment(t_line line)
+t_segment	*segment(t_line line)
 {
-	t_segment	result;
+	t_segment	*result;
 	t_point		a;
 	t_point		b;
 
-	result.segment = line;
+	result = malloc(sizeof(t_segment));
+	ft_bzero(result, sizeof(t_segment));
+	result->segment = line;
 	a = line.a;
 	b = line.b;
 	a.px = b.px - a.px;
 	a.py = b.py - a.py;
-	result.vector = a;
+	result->vector = a;
 	return (result);
 }
 
@@ -265,6 +267,12 @@ int	main(int argc, char **argv)
 	fill_img(cub->tmp, color(red));
 	//draw_line(point(0, 0), point(2000, 1100), cub->tmp);
 
+	t_list	segments;
+
+	segments = list(NULL);
+	list_push_b(&segments, node(segment(line(point(1,1), point(7,1))), NULL));
+	ft_printf("segments: %p, %p, %d\n", segments.head, segments.tail, segments.size);
+	/*
 	t_line	segments[4];
 
 	segments[0] = line(point(1, 1), point(7, 1));
@@ -296,6 +304,7 @@ int	main(int argc, char **argv)
 		draw_normal(line(tmp1, tmp2), cub->tmp);
 		i++;
 	}
+	*/
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 
 	if (!cub)
