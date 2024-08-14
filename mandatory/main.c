@@ -194,15 +194,19 @@ t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offse
 
 void	drawNormal(t_line line)
 {
-	t_point	pr;
+	t_point	p10;
+	t_point	p0;
+	t_point	p1;
 	t_point	normal;
 
-	pr = line.a;
-	pr.px = line.b.px - line.a.px;
-	pr.py = line.b.py - line.a.py;
-	normal = normalize(pr);
-
-
+	p10 = line.a;
+	p10.px = line.b.px - line.a.px;
+	p10.py = line.b.py - line.a.py;
+	normal = normalize(point(-p10.py, p10.px));
+	p0.px = (line.a.px + line.b.px) * 0.5f;
+	p0.py = (line.a.py + line.b.py) * 0.5f;
+	p1.px = (p0.px + normal.px) * 12.0f;
+	p1.py = (p0.py + normal.py) * 12.0f;
 }
 
 int	main(int argc, char **argv)

@@ -1,5 +1,8 @@
 modules
 
+
+When download the ropository make fails, check out that latter
+
 Libft
 	resolve module printf confict
 
