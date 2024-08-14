@@ -18,7 +18,7 @@
 
 
 //===========================================================================//
-void	freeGenStruct(t_cub *cub)
+void	free_gen_struct(t_cub *cub)
 {
 	if (cub)
 	{		
@@ -39,45 +39,45 @@ void	freeGenStruct(t_cub *cub)
 		/*
 		
 		if (map)
-			afeliciaFreeMap();
+			afelicia_free_map();
 
 		*/
 		if (cub->player)
 			;//
 
 		if (cub->north)
-			freeImg(cub->north);
+			free_img(cub->north);
 		if (cub->south)
-			freeImg(cub->south);
+			free_img(cub->south);
 		if (cub->east)
-			freeImg(cub->east);
+			free_img(cub->east);
 		if (cub->west)
-			freeImg(cub->west);
+			free_img(cub->west);
 
 		ft_bzero(cub, sizeof(t_cub));
 		free(cub);
 	}
 }
 
-int	iGSError(t_cub *cub)
+int	i_g_s_error(t_cub *cub)
 {
-	freeGenStruct(cub);
+	free_gen_struct(cub);
 	return (0);
 }
 
-int	openWallTex(t_cub *cub)
+int	open_wall_tex(t_cub *cub)
 {
 	/*
-	cub->north = openImg(cub->mlx, "");
+	cub->north = open_img(cub->mlx, "");
 	if (!cub->north)
 		return (0);
-	cub->south = openImg(cub->mlx, "");
+	cub->south = open_img(cub->mlx, "");
 	if (!cub->south)
 		return (0);
-	cub->east = openImg(cub->mlx, "");
+	cub->east = open_img(cub->mlx, "");
 	if (!cub->east)
 		return (0);
-	cub->west = openImg(cub->mlx, "");
+	cub->west = open_img(cub->mlx, "");
 	if (!cub->west)
 		return (0);
 	*/
@@ -90,19 +90,19 @@ int	openWallTex(t_cub *cub)
 	TODO: I want to implement the window array for a window managment system,
 	so the general structure might change in the future
 */
-int	initGenStruct(t_cub *cub, char *map_path)
+int	init_gen_struct(t_cub *cub, char *map_path)
 {
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
-		return (iGSError(cub));
+		return (i_g_s_error(cub));
 	// CHANGE THIS RESOLUTION AFTER!!!!
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
-		return (iGSError(cub));
+		return (i_g_s_error(cub));
 	if (!parsing(cub, map_path))
-		return (iGSError(cub));
-	if (!openWallTex(cub))
-		return (iGSError(cub));
+		return (i_g_s_error(cub));
+	if (!open_wall_tex(cub))
+		return (i_g_s_error(cub));
 	return (1);
 }
 
@@ -121,12 +121,12 @@ t_cub	*ft_constructor(char *map_path)
 	if (!result)
 		return (NULL);
 	ft_bzero(result, sizeof(t_cub));
-	if (!initGenStruct(result, map_path))
+	if (!init_gen_struct(result, map_path))
 		return (NULL);
 	return (result);
 }
 
-int	ft_drawFrame(void *p_cub)
+int	ft_draw_frame(void *p_cub)
 {
 	t_cub	*cub;
 
@@ -136,7 +136,7 @@ int	ft_drawFrame(void *p_cub)
 }
 
 
-t_point	getBoundsMax(t_line tmp, t_point max)
+t_point	get_bounds_max(t_line tmp, t_point max)
 {
 	if (tmp.a.px > max.px)
 		max.px = tmp.a.px;
@@ -149,7 +149,7 @@ t_point	getBoundsMax(t_line tmp, t_point max)
 	return (max);
 }
 
-t_point	getBoundsMin(t_line tmp, t_point max)
+t_point	get_bounds_min(t_line tmp, t_point max)
 {
 	if (tmp.a.px < max.px)
 		max.px = tmp.a.px;
@@ -162,7 +162,7 @@ t_point	getBoundsMin(t_line tmp, t_point max)
 	return (max);
 }
 
-t_line	getBounds(t_line *segments, unsigned int size)
+t_line	get_bounds(t_line *segments, unsigned int size)
 {
 	unsigned int	i;
 	t_point			max;
@@ -173,14 +173,14 @@ t_line	getBounds(t_line *segments, unsigned int size)
 	min = point(FLT_MAX, FLT_MAX);
 	while (i < size)
 	{
-		max = getBoundsMax(segments[i], max);
-		min = getBoundsMin(segments[i], min);
+		max = get_bounds_max(segments[i], max);
+		min = get_bounds_min(segments[i], min);
 		i++;
 	}
 	return (line(max, min));
 }
 
-t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offset)
+t_point	remap_point(t_point pt, t_line bounds, t_resolution map_offset, int offset)
 {
 	t_point	result;
 	float	resultx;
@@ -192,7 +192,7 @@ t_point	remapPoint(t_point pt, t_line bounds, t_resolution map_offset, int offse
 	return (point(resultx, resulty));
 }
 
-void	drawNormal(t_line line, t_img *img)
+void	draw_normal(t_line line, t_img *img)
 {
 	t_point	p10;
 	t_point	p0;
@@ -207,7 +207,7 @@ void	drawNormal(t_line line, t_img *img)
 	p0.py = (line.a.py + line.b.py) * 0.5f;
 	p1.px = p0.px + normal.px * 12.0f;
 	p1.py = p0.py + normal.py * 12.0f;
-	drawLine(p0, p1, img);
+	draw_line(p0, p1, img);
 }
 
 
@@ -261,9 +261,9 @@ int	main(int argc, char **argv)
 	cub = ft_constructor(argv[2]);
 	//================================================================================
 
-	cub->tmp = initImg(cub->mlx, resolution(1920, 1080));
-	fillImg(cub->tmp, color(red));
-	//drawLine(point(0, 0), point(2000, 1100), cub->tmp);
+	cub->tmp = init_img(cub->mlx, resolution(1920, 1080));
+	fill_img(cub->tmp, color(red));
+	//draw_line(point(0, 0), point(2000, 1100), cub->tmp);
 
 	t_line	segments[4];
 
@@ -278,7 +278,7 @@ int	main(int argc, char **argv)
 
 	screen_offset = 50;
 	map_acot = resolution(cub->tmp->resolution.width - screen_offset, cub->tmp->resolution.height - screen_offset);
-	bounds = getBounds(segments, 4);
+	bounds = get_bounds(segments, 4);
 	printf("BOUNDS: \nmax:%f, %f\nmin: %f, %f\n", bounds.a.px, bounds.a.py, bounds.b.px, bounds.b.py);
 	int i = 0;
 	while (i < 4)
@@ -288,12 +288,12 @@ int	main(int argc, char **argv)
 
 		tmp1 = segments[i].a;
 		tmp2 = segments[i].b;
-		tmp1 = remapPoint(tmp1, bounds, map_acot, 50);
-		tmp2 = remapPoint(tmp2, bounds, map_acot, 50);
+		tmp1 = remap_point(tmp1, bounds, map_acot, 50);
+		tmp2 = remap_point(tmp2, bounds, map_acot, 50);
 		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp1.px, (int)tmp1.py);
 		ft_printf("point:%d (%d, %d)\n", (int)i, (int)tmp2.px, (int)tmp2.py);
-		drawLine(tmp1, tmp2, cub->tmp);
-		drawNormal(line(tmp1, tmp2), cub->tmp);
+		draw_line(tmp1, tmp2, cub->tmp);
+		draw_normal(line(tmp1, tmp2), cub->tmp);
 		i++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
@@ -303,6 +303,6 @@ int	main(int argc, char **argv)
 		write(2, "Error: cannot initialize the general struct\n", 45);
 		return (-1);
 	}
-	mlx_loop_hook(cub->mlx, ft_drawFrame, cub);
+	mlx_loop_hook(cub->mlx, ft_draw_frame, cub);
 	mlx_loop(cub->mlx);
 }
