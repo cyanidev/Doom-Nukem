@@ -246,6 +246,45 @@ void	*default_node_free(void *ptr)
 
 //=============================================BSP IN ENGINE
 
+
+void	draw_circle(float radius, t_img	*img)
+{
+	float	x;
+	float	y;
+	float	r;
+	float	distance;
+
+	y = 0;
+	r = 2.0 * radius;
+	while (y < r)
+	{
+			x = 0;
+			while (x < r)
+			{
+				//dx = radius - x;
+				//dy = radius - y;
+				put_pixel(img, color_point(point(x, y), color_from_rgba()));
+				++x;
+			}
+		++y;
+	}
+}
+
+
+/*
+for (float y = 0; y < 2.0 * r; y++)
+{
+    for (float x = 0; x < 2 * r; x++)
+    {
+        float deltaX = r - x;
+        float deltaY = r - y;
+        float distance = sqrt(deltaX * deltaX + deltaY * deltaY);
+        color = clamp (r - distance, 0, 1);
+        plot(x, y, color);
+    }
+}
+*/
+
 typedef struct s_BSP
 {
 	struct s_BSP	*front;
@@ -312,6 +351,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	*/
+	draw_circle(10, cub->tmp);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 
 	if (!cub)
