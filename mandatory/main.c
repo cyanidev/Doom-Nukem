@@ -246,27 +246,87 @@ void	*default_node_free(void *ptr)
 
 //=============================================BSP IN ENGINE
 
+void	horizontal_line(int x0, int y0, int x1, t_img *img)
+{
+	int x;
 
-void	draw_circle(float radius, t_img	*img)
+	x = x0;
+	while (x <= x1)
+	{
+		++x;
+		put_pixel(img, point(x, y0));
+	}
+
+}
+
+void	plot4points(int cx, int cy, int x, int y, t_img *img)
+{
+	horizontal_line(cx - x, cy + y, cx +x, img);
+	if (y != 0)
+		horizontal_line(cx - x, cy - y, cx +x, img);
+}
+			
+
+void	draw_circle(int radius, t_img	*img)
+{
+
+	int	cx;
+	int	cy;
+
+	cx = 100;
+	cy = 100;
+
+	int error;
+	int	x;
+	int y;
+	int	lasty;
+
+	error = -radius;
+	x = radius;
+	y = 0;
+	while (x >= y)
+	{
+			lasty = y;
+			error += y++;
+			error += y;
+			plot4points(cx, cy, x, lasty, img);
+			if (error >= 0)	
+			{
+				if (x != lasty)
+					plot4points(cx, cy, lasty, x, img);
+				error -= x--;
+				error -= x;
+			}
+	}
+
+}
+
+void	draw_circle2(int radius, t_img	*img)
 {
 	float	x;
 	float	y;
 	float	r;
 	float	distance;
 
-	y = 0;
+	y = -1;
 	r = 2.0 * radius;
 	while (y < r)
 	{
 			x = 0;
-			while (x < r)
+			while (x <= r)
 			{
-				//dx = radius - x;
-				//dy = radius - y;
-				put_pixel(img, color_point(point(x, y), color_from_rgba()));
-				++x;
+				distance = (r - sqrt((radius - x) * 
+				(radius - x) + (radius - y) * (radius - y)));
+				distance = (int)(distance / radius);
+				distance *= 255;
+				if (distance)
+				{
+					put_pixel(img, color_point(point(x, y), 
+					color_from_rgb(distance, distance, distance)));
+				}
+				x++;
 			}
-		++y;
+			y++;
 	}
 }
 
@@ -351,7 +411,14 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	*/
-	draw_circle(10, cub->tmp);
+	int	z;
+
+	z = 0;
+	while (z < 1000)
+	{
+		draw_circle(5, cub->tmp);
+		z++;
+	}
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 
 	if (!cub)
