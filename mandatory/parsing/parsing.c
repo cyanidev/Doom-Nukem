@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 00:41:51 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/11 00:42:17 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/16 02:51:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 // this is your include file you can found it in Doom-Nukem/includes/
 #include "parsing.h"
+/*
+TODO:	read the map
+		save the map in a double array of chars
+		
+*/
+int	parsing(t_cub *cub,)
+
 
 
 /*
@@ -103,26 +110,6 @@ int freeParsing(t_cub *cub)
 	return (0);
 }
 
-/*
-
-	the cub struct memebers for this part:
-
-		typedef struct s_cub
-		{
-			char			*north_path;
-			char			*south_path;
-			char			*east_path;
-			char			*west_path;
-		}				t_cub;
-
-	What you need to do:
-		here you need to put the texture paths
-*/
-int parsTex(t_cub *cub, char *map_path)
-{
-
-	return (1);
-}
 
 /*
 
