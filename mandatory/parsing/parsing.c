@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 00:41:51 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/16 02:51:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 02:53:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,47 @@ TODO:	read the map
 		save the map in a double array of chars
 		
 */
-int	parsing(t_cub *cub,)
+
+int fill_info(t_cub *cub, char **map, int i, int j)
+{
+	while (ft_isspace(map[i][j]))
+		j++;
+	if (ft_isalpha(map[i][j]))
+	{
+		if (map[i][j + 1] && isalpha(map[i][j + 1]))
+		{
+			if (fill_textures(cub, map[i], j) == 0)
+				return (print_msg("Error in textures", 0));
+			return ();
+		}
+		else
+		{
+			if (fill_color(cub, map[i], j) == 0)
+				return (print_msg("Error in colors", 0));
+			return ();
+		}
+	}
+		
+}
+
+int	parsing(t_cub *cub, char **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			fill_info(cub,map, i, j);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 
 

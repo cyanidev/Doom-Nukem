@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 00:35:37 by andie             #+#    #+#             */
-/*   Updated: 2024/08/16 03:21:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 02:07:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static void fill_tab(int row, int column, int i, t_cub *cub)
 
 	while ((line = get_next_line(cub->map_info.fd)) != NULL)
 	{
-		cub->map_info.file[row] = malloc(sizeof(char) * (ft_strlen(line) + 1));
+		cub->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
 		if (cub->map_info.file[row] == NULL)
-			return (print_msg("Malloc failed", 0));//needs to be freeded before return
+			return (print_msg("Malloc failed", 0));//tab needs to be freeded before return
 		while(line[i] != '\0')
 		{
 			cub->map_info.file[row][column] = line[i];
@@ -59,6 +59,7 @@ static void fill_tab(int row, int column, int i, t_cub *cub)
 			i++;
 		}
 		cub->map_info.file[row][column] = '\0';
+		row++;
 		column = 0;
 		i = 0; 
 		free(line);
@@ -77,7 +78,7 @@ int	parse_map(char *path, t_cub *cub)
 	column = 0;
 	cub->map_info.lines = count_lines(path);
 	cub->map_info.path = path;
-	cub->map_info.file = malloc(sizeof(char *) * cub->map_info.lines);
+	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));
 	if (cub->map_info.file == NULL)
 		return (print_msg("Malloc failed", 0));
 	cub->map_info.fd = open(path, O_RDONLY);
