@@ -229,17 +229,6 @@ void	draw_circle(int radius, t_img *img, t_point center)
 
 //============================================= Draw circle in mlx_utils
 
-//=============================================BSP IN ENGINE
-
-typedef struct s_BSP
-{
-	struct s_BSP	*front;
-	struct s_BSP	*back;
-	t_segment		splitter;
-}				t_BSP;
-
-//=============================================BSP IN ENGINE
-
 //============================================= get_bounds in engine
 
 t_point	get_bounds_max(t_line tmp, t_point max)
@@ -309,7 +298,6 @@ t_map_editor	new_map_editor(t_list segments, int screen_offset, t_resolution img
 	t_map_editor	result;
 
 	result.segments = segments;
-	printf("my: %i, other:%i\n", result.segments.size, segments.size);
 	result.screen_center = point(0, 0);
 	result.screen_zoom = 0;
 	result.screen_offset = screen_offset;
@@ -330,11 +318,7 @@ t_point	remap_point(t_point pt, t_line bounds, t_resolution map_offset, int offs
 	float	resultx;
 	float	resulty;
 
-	printf("\noffset:%i\n", offset);
-	printf("pt:%f, %f\n", pt.px, pt.py);
-	printf("bounds: p1(%f, %f), p2(%f, %f)\n", bounds.a.px, bounds.a.py, bounds.b.px, bounds.b.py);
-	printf("resolution:%i, %i\n\n", map_offset.width, map_offset.height);
-
+	// you can calc this value 1 time or every time there is an update event
 	resultx = (pt.px - bounds.b.px) * (map_offset.width - offset) / (bounds.a.px - bounds.b.px) + offset;
 	resulty = (pt.py - bounds.b.py) * (map_offset.height - offset) / (bounds.a.py - bounds.b.py) + offset;
 	return (point(resultx, resulty));
@@ -368,23 +352,31 @@ void	draw_map_editor(t_map_editor map_editor, t_img *img)
 	tmp = map_editor.segments.head;
 	while (tmp)
 	{
-		printf("%p, %p, %i\n", tmp->content, map_editor.segments.head, map_editor.segments.tail, map_editor.segments.size);
-		/*
 		tmp1 = (t_segment *)tmp->content;
 		tmp2 = tmp1->segment.a;
 		tmp3 = tmp1->segment.b;
 		tmp2 = remap_point(tmp2, map_editor.bounds, map_editor.map_acot, map_editor.screen_real_offset);
-		printf("tmp2 = x:%f, y:%f\n", tmp2.px, tmp2.py);
 		tmp3 = remap_point(tmp3, map_editor.bounds, map_editor.map_acot, map_editor.screen_real_offset);
-		printf("tmp3 = x:%f, y:%f\n", tmp3.px, tmp3.py);
 		draw_line(tmp2, tmp3, img);
-		//draw_normal(line(tmp2, tmp3), img);
-		*/
+		draw_normal(line(tmp2, tmp3), img);
+		draw_circle(5, img, tmp2);
+		draw_circle(5, img, tmp3);
 		tmp = tmp->next;
 	}
 }
 
 //============================================== draw map editor in mlx_utils
+
+//=============================================BSP IN ENGINE
+
+typedef struct s_BSP
+{
+	struct s_BSP	*front;
+	struct s_BSP	*back;
+	t_segment		*splitter;
+}				t_BSP;
+
+//=============================================BSP IN ENGINE
 
 
 int	main(int argc, char **argv)
@@ -403,24 +395,22 @@ int	main(int argc, char **argv)
 
 	cub->tmp = init_img(cub->mlx, resolution(1920, 1080));
 	fill_img(cub->tmp, color(red));
-	//draw_line(point(0, 0), point(2000, 1100), cub->tmp);
 
+	// this part is parsing one map ======================================================
 	t_list	segments;
 
 	segments = list(NULL);
-	printf("0:head:%p, tail:%p, %i\n", segments.head, segments.tail, segments.size);
 	list_push_b(&segments, node(segment(line(point(1, 1), point(7, 1))), &default_node_free));
-	printf("1:head:%p, tail:%p, %i\n", segments.head, segments.tail, segments.size);
 	list_push_b(&segments, node(segment(line(point(7, 1), point(7, 8))), &default_node_free));
-	printf("2:head:%p, tail:%p, %i\n", segments.head, segments.tail, segments.size);
 	list_push_b(&segments, node(segment(line(point(7, 8), point(1, 8))), &default_node_free));
-	printf("3:head:%p, tail:%p, %i\n", segments.head, segments.tail, segments.size);
 	list_push_b(&segments, node(segment(line(point(1, 8), point(1, 1))), &default_node_free));
-	printf("4:head:%p, tail:%p, %i\n", segments.head, segments.tail, segments.size);
 
 	t_map_editor map_edit;
 
 	map_edit = new_map_editor(segments, 50, cub->tmp->resolution);
+
+	// this part is parsing the map ======================================================
+
 	draw_map_editor(map_edit, cub->tmp);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);
 
