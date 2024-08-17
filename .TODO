@@ -1,10 +1,33 @@
 modules
 
+BSP
+
+WALLS
+
+LVL_DSG
+
+SECUNDARIO CUANDO ACABE!!!!!!
+
+MAP
+read map
+background grid
+render pipeline-> if not mouse event dont update, if only zoom update x, if is in game mode dont update, etc..;
+point hitboxes -> square;
+point drag and drop;
+point join automatically
+red area join warning?
+
+states?
+move, delete, add?
+save map
+
+
 make lines more thick
 resolve the color lines problem
 
 
 test if the rsqrt is faster than the sqrt and if it is implement the sqrt
+
 
 
 
