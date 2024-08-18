@@ -151,6 +151,8 @@ t_segment	*segment(t_line line)
 	t_point		b;
 
 	result = malloc(sizeof(t_segment));
+	if (!result)
+		return (NULL);
 	ft_bzero(result, sizeof(t_segment));
 	result->segment = line;
 	a = line.a;
@@ -369,14 +371,152 @@ void	draw_map_editor(t_map_editor map_editor, t_img *img)
 
 //=============================================BSP IN ENGINE
 
-typedef struct s_BSP
+typedef struct s_bsp
 {
-	struct s_BSP	*front;
-	struct s_BSP	*back;
+	struct s_bsp	*front;
+	struct s_bsp	*back;
 	t_segment		*splitter;
-}				t_BSP;
+}				t_bsp;
+
+
+t_bsp	*bsp(t_bsp *front, t_bsp *back, t_segment *splitter)
+{
+	t_bsp	*result;
+
+	result = malloc(sizeof(t_bsp));
+	if (!result)
+		return (NULL);
+	ft_bzero(result, sizeof(t_bsp));
+	result->front = front;
+	result->back = back;
+	result->splitter = splitter;
+	return (result);
+}
+
+float	cross_2d(t_point a, t_point b)
+{
+	return (a.px * b.py - b.px * a.py);
+}
+
+#define EPS 1e-4
+
+int	split_segments(t_list *front, t_list *back, t_list segments, t_bsp *nd)
+{
+	t_segment	*splitter_seg;
+	t_node		*tmp;
+	t_segment	*seg_tmp;
+	t_segment	*content_tmp;
+	float		numerator;
+	float		denominator;
+	float		t;
+	int			denominator_is_zero;
+	int			numerator_is_zero;
+	float		intersection;
+	t_point		intersection_pt;
+	t_segment	*r_segment;
+	t_segment	*l_segment;
+	t_segment	*third_segment;
+
+	splitter_seg = (t_segment *)segments.head->content;
+	nd->splitter = malloc(sizeof(t_segment));
+	if (!nd->splitter)
+		return ;
+	ft_memcpy(nd->splitter, split_segments, sizeof(t_segment));
+	tmp = segments.head;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		seg_tmp = (t_segment *)tmp->content;
+		numerator = cross_2d(
+		point(
+		seg_tmp->segment.a.px - splitter_seg->segment.a.px, 
+		seg_tmp->segment.a.py - splitter_seg->segment.a.py
+		), splitter_seg->vector);
+		denominator = cross_2d(splitter_seg->vector, seg_tmp->vector);
+
+
+		denominator_is_zero = ft_abs(denominator) < EPS;
+		numerator_is_zero = ft_abs(numerator) < EPS;
+
+		if (denominator_is_zero && numerator_is_zero)
+		{
+			content_tmp = malloc(sizeof(t_segment));
+			if (content_tmp)
+			{
+				ft_memcpy(content_tmp, seg_tmp, sizeof(t_segment));
+				list_push_f(front, node(content_tmp, &default_node_free));
+			}
+		}
+		if (!denominator_is_zero)
+		{
+			intersection = numerator / denominator;
+
+			if (0.0 < intersection && intersection < 1.0)
+			{
+				intersection_pt = point(seg_tmp->segment.a.px + intersection * seg_tmp->vector.px, 
+				seg_tmp->segment.a.py + intersection * seg_tmp->vector.py);
+
+				r_segment = segment(line(seg_tmp->segment.a, intersection_pt));
+				l_segment = segment(line(intersection_pt, seg_tmp->segment.b));
+				if (numerator > 0)
+				{
+					third_segment = l_segment;
+					l_segment = r_segment;
+					r_segment = third_segment;
+				}
+				list_push_f(front, node(r_segment, &default_node_free));
+				list_push_f(back, node(l_segment, &default_node_free));
+			}
+		}
+		if (numerator < 0 || (numerator_is_zero && denominator > 0))
+		{
+			content_tmp = malloc(sizeof(t_segment));
+			if (content_tmp)
+			{
+				ft_memcpy(content_tmp, seg_tmp, sizeof(t_segment));
+				list_push_f(front, node(content_tmp, &default_node_free));
+			}
+		}
+		else if (numerator > 0 || (numerator_is_zero && denominator < 0))
+		{
+			content_tmp = malloc(sizeof(t_segment));
+			if (content_tmp)
+			{
+				ft_memcpy(content_tmp, seg_tmp, sizeof(t_segment));
+				list_push_f(back, node(content_tmp, &default_node_free));
+			}
+		}
+	}
+}
+
+t_bsp	*build_bsp(t_list segments);
+
+t_bsp	*build_bsp(t_list segments)
+{
+	t_bsp	*result;
+	t_list	front;
+	t_list	back;
+
+	if (!segments.head)
+		return (NULL);
+	result = bsp(NULL, NULL, NULL);
+	if (!result)
+		return (NULL);
+	if (!split_segments(&front, &back, segments, result))
+		return (NULL);
+
+	if (front.head)
+		result->front = build_bsp(front);
+	if (back.head)
+		result->back = build_bsp(back);
+
+	list_clear(&front);
+	list_clear(&back);
+	return (NULL);
+}
 
 //=============================================BSP IN ENGINE
+
 
 
 int	main(int argc, char **argv)
@@ -405,11 +545,18 @@ int	main(int argc, char **argv)
 	list_push_b(&segments, node(segment(line(point(7, 8), point(1, 8))), &default_node_free));
 	list_push_b(&segments, node(segment(line(point(1, 8), point(1, 1))), &default_node_free));
 
+	list_push_b(&segments, node(segment(line(point(2, 4), point(2, 3))), &default_node_free));
+	list_push_b(&segments, node(segment(line(point(2, 3), point(5, 5))), &default_node_free));
+	list_push_b(&segments, node(segment(line(point(5, 5), point(3, 6))), &default_node_free));
+	list_push_b(&segments, node(segment(line(point(3, 6), point(2, 4))), &default_node_free));
+
 	t_map_editor map_edit;
 
 	map_edit = new_map_editor(segments, 50, cub->tmp->resolution);
 
 	// this part is parsing the map ======================================================
+
+	cub->root_node = build_bsp(segments);
 
 	draw_map_editor(map_edit, cub->tmp);
 	mlx_put_image_to_window(cub->mlx, cub->mlx_win, cub->tmp->img, 0, 0);

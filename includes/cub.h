@@ -20,19 +20,7 @@
 #  define BONUS 1
 # endif
 
-typedef enum e_structType
-{
-	Empty,
-	Floor,
-	Wall,
-	Door
-}			t_structType;
-
-typedef struct s_mapChunk
-{
-	t_structType	type;
-	unsigned int	light;
-}				t_mapChunk;
+typedef struct s_bsp t_bsp;
 
 typedef struct s_cub
 {
@@ -51,6 +39,9 @@ typedef struct s_cub
 	t_color			celling;
 	char			**map;
 	t_player		*player;
+
+
+	t_bsp			*root_node;
 
 	t_img			*north;
 	t_img			*south;
