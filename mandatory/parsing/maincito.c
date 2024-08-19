@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 14:03:11 by andie             #+#    #+#             */
-/*   Updated: 2024/08/19 16:57:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/19 17:19:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ void init_player(t_player *player)
 	player->x = 0;
 	player->y = 0;
 	player->angle = 0;
+}
+
+void init_info(t_map_info mp_info)
+{
+	map_info->fd = 0;
+	map_info->line_count = 0;
+	map_info->path = NULL;
+	map_info->file = NULL;
+	map_info->height = 0;
+	map_info->width = 0;
+	map_info->index_end_of_map = 0;
 }
 
 int init_stuff(t_cub *cub)
@@ -54,7 +65,8 @@ int init_stuff(t_cub *cub)
 	}
 	init_color(&cub->floor);
 	init_color(&cub->ceiling);
-	init_player(&cube->player);
+	init_player(&cub->player);
+	init_info(&cub->map_info);
 	return (1);
 }
 

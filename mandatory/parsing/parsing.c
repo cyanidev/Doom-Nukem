@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 00:41:51 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/19 03:20:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/19 17:12:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ int	fill_info(t_cub *cub, char **map)
 int	parsing(t_cub *cub, char **argv)
 {
 	if(check_file(argv[1]) == 0 && parse_map(cub, argv[1]) == 0)
-		free_stuff();
+		free_stuff(cub);
 	if(fill_info(cub, cub->map_info.file) == 0)
 	{
-		free_stuff();
+		free_stuff(cub);
 		return (0);
 	}
 	if (check_map(cub, cub->map) == 0)
 	{
-		free_stuff();
+		free_stuff(cub);
 		return (0);
 	}
 	return (1);
