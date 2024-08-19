@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_info.c                                         :+:      :+:    :+:   */
+/*   file_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 00:35:37 by andie             #+#    #+#             */
-/*   Updated: 2024/08/17 02:07:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 19:10:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 #include "parsing.h"
 
-static void	init_mapinfo(t_mapinfo *mapinfo)
+static void	init_mapinfo(t_mapinfo *map_info)
 {
 	map_info->fd = 0;
 	map_info->lines = 0;
@@ -24,7 +24,7 @@ static void	init_mapinfo(t_mapinfo *mapinfo)
 	map_info->file = NULL;
 }
 
-static int count_lines(char *path)
+static int file_lines(char *path)
 {
 	int		count;
 	int		fd;
@@ -76,7 +76,7 @@ int	parse_map(char *path, t_cub *cub)
 	i = 0;
 	row = 0;
 	column = 0;
-	cub->map_info.lines = count_lines(path);
+	cub->map_info.lines = file_lines(path);
 	cub->map_info.path = path;
 	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));
 	if (cub->map_info.file == NULL)

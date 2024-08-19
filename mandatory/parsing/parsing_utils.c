@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 20:19:11 by andie             #+#    #+#             */
-/*   Updated: 2024/08/16 01:11:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/18 14:42:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ static int	check_exten(char *arg)
 		return (0);
 }
 
-//returns 0 on success
+//returns 1 on success
 int	check_file(char *arg)
 {
 	int	fd;
 	
 	if (check_dir(arg))
-		return (print_msg("File is a directory.", 1));
+		return (print_msg("File is a directory.", 0));
 	fd = open(arg, O_RDONLY);
 	if (fd == -1)
-		return (err_msg(arg, strerror(errno), 1));
+		return (err_msg(arg, strerror(errno), 0));
 	close(fd);
 	if (!check_exten(arg))
-		return (print_msg("Incorrect type of file.", 1));
-	return (0);
+		return (print_msg("Incorrect type of file.", 0));
+	return (1);
 }
 
 int	ft_isspace(char c)

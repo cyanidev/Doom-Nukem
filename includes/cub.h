@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 02:02:49 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/16 02:57:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/19 16:08:45 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_mapChunk
 	char			*east_path;
 	char			*west_path;
 	t_color			floor;
-	t_color			celling;
+	t_color			celling;//typo
 	char			**map;
 	t_player		*player;
 
@@ -70,6 +70,7 @@ typedef struct s_player
 	int	x;
 	int	y;
 	int	angle;
+	char	dir;
 }	t_player;
 
 typedef struct s_mapinfo
@@ -92,7 +93,7 @@ typedef struct s_cub
 //
 	t_img			*tmp;
 //
-	t_mapinfo	mapinfo;
+	t_mapinfo	map_info;
 //
 	char			*north_path;
 	char			*south_path;

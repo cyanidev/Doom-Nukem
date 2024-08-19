@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 02:38:15 by andie             #+#    #+#             */
-/*   Updated: 2024/08/17 03:22:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 15:34:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int parse_rgb_values(char *line, int *red, int *green, int *blue)
 	return (1);
 }
 
+//returns 1 if the color is successfully parsed, 0 otherwise
 int fill_color(t_cub *cub, char *line, int i)
 {
 	int	red;
