@@ -52,27 +52,169 @@ int	check_dir(char *path)
 	return (1);
 }
 
-t_enmunoseque get_element_type(t_char *str)
+int	is_space(char *c)
 {
-	static size_t	no = 0;
-	static size_t	so = 0;
-	static size_t	we = 0;
-	static size_t	ea = 0;
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
+		return (1);
+	return (0);
+}
+
+//======================================= get element .c
+
+typedef enum e_map_format
+{
+	north,
+	south,
+	east,
+	west,
+	ceiling,
+	floor,
+	error
+}				t_map_format;
+
+int	get_element_check_map(char c)
+{
+	if (c == '1')
+		return (1);
+	return (0);
+}
+
+int	get_element_check_col(char c)
+{
+	if (c == 'F' ||
+		c == 'C' )
+		return (1);
+	return (0);
+}
+
+int	get_element_check_tex(char c)
+{
+	if (c == 'N' ||
+		c == 'S' ||
+		c == 'W' ||
+		c == 'E')
+		return (1);
+	return (0);
+}
+
+int	get_element_check_char(char c)
+{
+	if (get_element_check_tex(c))
+		return (1);
+	else if (get_element_check_col(c))
+		return (1);
+	else if (get_element_check_map(c))
+		return (1);
+	return (0);
+}
+
+int	get_tex_check(char *str)
+{
+	int	a;
+	int	b;
+	int	c;
+	int	i;
+
+	i = 0;
+	a = '\0';
+	b = '\0';
+	c = '\0';
+	while (str[i])
+	{
+		if (i == 0)
+			a = str[i];
+		if (i == 1)
+			b = str[i];
+		if (i == 2)
+			c = str[i];
+		i++;
+	}
+	if (!a || !b || !c)
+		return (0);
+	if (!is_space(c))
+		return (0);
+	return (1);
+}
+
+t_map_format get_tex_util(int *type, t_map_format result)
+{
+	*type += 1;
+	return (result);
+}
+
+t_map_format get_element_type_tex(char *str)
+{
+	static int	n = 0;
+	static int	s = 0;
+	static int	w = 0;
+	static int	e = 0;
+
+	if (!get_tex_check(str))
+		return (error);
+	if (str[0] == 'N' && str[1] == 'O' && !n)
+		return (get_tex_util(&n, north));
+	if (str[0] == 'S' && str[1] == 'O' && !s)
+		return (get_tex_util(&s, south));
+	if (str[0] == 'W' && str[1] == 'E' && !w)
+		return (get_tex_util(&w, west));
+	if (str[0] == 'E' && str[1] == 'A' && !e)
+		return (get_tex_util(&e, east));
+	return (error);
+}
+
+t_map_format get_element_type_col(char *str)
+{
 	static size_t	f = 0;
 	static size_t	c = 0;
-	// if map == 1 every other element type is invalid!!!
-	static size_t	m = 0;
 
 
 }
 
-
-int	parse_by_elment_type()
+t_map_format get_element_type(char *str)
 {
+	// if map == 1 every other element type is invalid!!!
+	static size_t	m = 0;
+	int		i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (get_element_check_char(str[i]))
+		{
+			if (get_element_check_tex(str[i]) && !m)
+				return (get_element_type_tex(str + i));
+			if (get_element_check_col(str[i]) && !m)
+				return (get_element_type_col(str + i));
+			if (get_element_check_map(str[i]))
+			{
+				m++;
+				return (map);
+			}
+			printf("map duplicate???\n");
+			return (error);
+		}
+		else if (!is_space(str[i]))
+			return (error);
+		++i;
+	}
+	printf("this should be space\n");
+	return (space);
+}
+
+//======================================= get element .c
+
+int	parse_by_element_type(t_cub *cub, t_map_format elment_type, char *line)
+{
+	if (elment_type == north)
+	{
+
+	}
+	if (elment_type == south)
+	{
+
+	}
 
 	free(line);
-
 	return (1);
 }
 
@@ -103,15 +245,15 @@ int	parsing(t_cub *cub, char *map_path)
 			// do a stringcmp funiton in libft!!!!!!!!!!!!!
 			if (ft_strncmp(extention, ".cub", 3) == 0)
 			{
-				char	*line;
-				char	*map;
-				t_enum	element_type;
+				char			*line;
+				char			*map;
+				t_map_format	element_type;
 
 				line = get_next_line(fd);
 				map = NULL;
 				while (line)
 				{
-					element_type = get_element_type(line)
+					element_type = get_element_type(line);
 					if (element_type == error)
 					{
 						free(line);
@@ -119,7 +261,7 @@ int	parsing(t_cub *cub, char *map_path)
 						close(fd);
 						printf("error bad elment type\n");
 					}
-					if (get_element_type(line) != map)
+					if (element_type != map)
 					{
 						//this funtion also free line!!!!
 						if (!parse_by_element_type(cub, elment_type, line))
