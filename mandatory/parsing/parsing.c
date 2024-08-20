@@ -42,6 +42,39 @@
 
 */
 
+int	check_dir(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY | __O_DIRECTORY);
+	if (fd < 0)
+		return (0);
+	return (1);
+}
+
+t_enmunoseque get_element_type(t_char *str)
+{
+	static size_t	no = 0;
+	static size_t	so = 0;
+	static size_t	we = 0;
+	static size_t	ea = 0;
+	static size_t	f = 0;
+	static size_t	c = 0;
+	// if map == 1 every other element type is invalid!!!
+	static size_t	m = 0;
+
+
+}
+
+
+int	parse_by_elment_type()
+{
+
+
+	free(line);
+
+	return (1);
+}
 
 /*
 
@@ -50,6 +83,65 @@
 */
 int	parsing(t_cub *cub, char *map_path)
 {
+	int		fd;
+
+	if (check_dir(map_path))
+		printf("this is bad directory!!!!\n");
+	fd = open(map_path, O_RDONLY);
+	if (fd < 0)
+		printf("this is bad, file!!!!\n");
+	else
+	{
+		char *extention = get_extention();
+		if (!extention)
+		{
+			close(fd);
+			printf("error bad extention!!!\n");
+		}
+		else
+		{
+			// do a stringcmp funiton in libft!!!!!!!!!!!!!
+			if (ft_strncmp(extention, ".cub", 3) == 0)
+			{
+				char	*line;
+				char	*map;
+				t_enum	element_type;
+
+				line = get_next_line(fd);
+				map = NULL;
+				while (line)
+				{
+					element_type = get_element_type(line)
+					if (element_type == error)
+					{
+						free(line);
+						free(map);
+						close(fd);
+						printf("error bad elment type\n");
+					}
+					if (get_element_type(line) != map)
+					{
+						//this funtion also free line!!!!
+						if (!parse_by_element_type(cub, elment_type, line))
+							printf("error in parsing!!!!");
+					}
+					else
+						map = ft_strjoin(map, line);
+				}
+				if (!parse_map(map))
+					printf("error in map parsing!!!!");
+
+			}
+			else if (ft_strncmp(extention, ".duk", 3) == 0)
+			{
+				printf("error, format still not supported!!!");
+			}
+			else
+				printf("bad, format!!!");
+		}
+	}
+	
+	
 
 	/*
 	// textures
@@ -69,7 +161,7 @@ int	parsing(t_cub *cub, char *map_path)
 	return (1);
 }
 
-int freeParsing(t_cub *cub)
+int free_parsing(t_cub *cub)
 {
 	// free and set to null
 	
@@ -118,7 +210,7 @@ int freeParsing(t_cub *cub)
 	What you need to do:
 		here you need to put the texture paths
 */
-int parsTex(t_cub *cub, char *map_path)
+int pars_tex(t_cub *cub, char *map_path)
 {
 
 	return (1);
@@ -139,7 +231,7 @@ int parsTex(t_cub *cub, char *map_path)
 		colorFromRGB(int red, int green, int blue); already made funtion
 
 */
-int parsCol(t_cub *cub, char *map_path)
+int pars_col(t_cub *cub, char *map_path)
 {
 
 	return (1);
@@ -202,9 +294,8 @@ int parsCol(t_cub *cub, char *map_path)
 		check the doors with if (!BONUS) BONUS define should be 1 if we are compiling the bonus and should be zero if we are not.
 
 */
-int parsMap(t_cub *cub, char *map_path)
+int pars_map(t_cub *cub, char *map_path)
 {
-
 	return (1);
 }
 
@@ -221,7 +312,7 @@ int parsMap(t_cub *cub, char *map_path)
 		the player is the last part you only have to initialize the player with the custom funtion that I already made
 		and your task here is only assing the angle and the position to the player with already made custom funtions
 */
-int parsPlayer(t_cub *cub, char *map_path)
+int pars_player(t_cub *cub, char *map_path)
 {
 
 	return (1);

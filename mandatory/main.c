@@ -530,7 +530,7 @@ int	main(int argc, char **argv)
 	}
 
 
-	cub = ft_constructor(argv[2]);
+	cub = ft_constructor(argv[1]);
 	//================================================================================
 
 	cub->tmp = init_img(cub->mlx, resolution(1920, 1080));
