@@ -37,6 +37,7 @@ static int	check_exten(char *arg)
 	if ((arg[length - 4] != '.' || arg[length - 3] != 'c' || arg[length - 2] != 'u'
 		|| arg[length - 1] != 'b'))
 		return (0);
+	return (1);
 }
 
 //returns 1 on success

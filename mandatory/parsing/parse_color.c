@@ -40,6 +40,13 @@ int parse_rgb_values(char *line, int *red, int *green, int *blue)
 	return (1);
 }
 
+void colorFromRGB(int r, int g, int b, t_color *color)
+{
+	color->r = r;
+	color->g = g;
+	color->b = b;
+}
+
 //returns 1 if the color is successfully parsed, 0 otherwise
 int fill_color(t_cub *cub, char *line, int i)
 {
@@ -53,13 +60,13 @@ int fill_color(t_cub *cub, char *line, int i)
 	{
 		if (parse_rgb_values(&line[i + 1], &red, &green, &blue) == 0)
 			return (print_msg("Error parsing ceiling color", 0));
-		//cub->ceiling = colorFromRGB(red, green, blue);
+		colorFromRGB(red, green, blue, cub->ceiling);
 	}
 	else if (line[i] == 'F')
 	{
 		if (parse_rgb_values(&line[i + 1], &red, &green, &blue) == 0)
 			return (print_msg("Error parsing ceiling color", 0));
-		//cub->floor = colorFromRGB(red, green, blue);
+		colorFromRGB(red, green, blue, cub->floor);
 	}
 	else
 		return (print_msg("Error in colors", 0));

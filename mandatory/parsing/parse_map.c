@@ -13,16 +13,7 @@
 //#include "cub.h"
 #include "parsing.h"
 
-static void	init_mapinfo(t_map_info *map_info)
-{
-	map_info->fd = 0;
-	map_info->lines = 0;
-	map_info->height = 0;
-	map_info->width = 0;
-	map_info->index_end_of_map = 0;
-	map_info->path = NULL;
-	map_info->file = NULL;
-}
+
 
 static int file_lines(char *path)
 {

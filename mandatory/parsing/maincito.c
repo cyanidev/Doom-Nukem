@@ -28,15 +28,15 @@ void init_player(t_player *player)
 	player->angle = 0;
 }
 
-void init_info(t_map_info map_info)
+void init_info(t_map_info *map_info)
 {
-	map_info.fd = 0;
-	map_info.lines = 0;
-	map_info.path = NULL;
-	map_info.file = NULL;
-	map_info.height = 0;
-	map_info.width = 0;
-	map_info.index_end_of_map = 0;
+	map_info->fd = 0;
+	map_info->lines = 0;
+	map_info->path = NULL;
+	map_info->file = NULL;
+	map_info->height = 0;
+	map_info->width = 0;
+	map_info->index_end_of_map = 0;
 }
 
 int init_stuff(t_cub *cub)
@@ -66,7 +66,7 @@ int init_stuff(t_cub *cub)
 	init_color(cub->floor);
 	init_color(cub->ceiling);
 	init_player(cub->player);
-	init_info(cub->map_info);
+	init_info(&cub->map_info);
 	return (1);
 }
 
