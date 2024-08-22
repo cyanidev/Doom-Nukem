@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samusanc <samusanc@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 00:41:51 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/11 00:42:17 by samusanc         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:45:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+/*#include "cub.h"
 // this is your include file you can found it in Doom-Nukem/includes/
 #include "parsing.h"
 
@@ -42,7 +42,7 @@
 
 */
 
-int	check_dir(char *path)
+/*int	check_dir(char *path)
 {
 	int	fd;
 
@@ -223,6 +223,7 @@ int	parse_by_element_type(t_cub *cub, t_map_format elment_type, char *line)
 	ON FAIL RETURN 0 and free your part
 
 */
+/*
 int	parsing(t_cub *cub, char *map_path)
 {
 	int		fd;
@@ -299,7 +300,7 @@ int	parsing(t_cub *cub, char *map_path)
 	if (!parsPlayer(cub, map_path))
 		return (freeParsing(cub));
 	*/
-
+/*
 	return (1);
 }
 
@@ -352,6 +353,7 @@ int free_parsing(t_cub *cub)
 	What you need to do:
 		here you need to put the texture paths
 */
+/*
 int pars_tex(t_cub *cub, char *map_path)
 {
 
@@ -373,6 +375,7 @@ int pars_tex(t_cub *cub, char *map_path)
 		colorFromRGB(int red, int green, int blue); already made funtion
 
 */
+/*
 int pars_col(t_cub *cub, char *map_path)
 {
 
@@ -436,6 +439,7 @@ int pars_col(t_cub *cub, char *map_path)
 		check the doors with if (!BONUS) BONUS define should be 1 if we are compiling the bonus and should be zero if we are not.
 
 */
+/*
 int pars_map(t_cub *cub, char *map_path)
 {
 	return (1);
@@ -454,11 +458,12 @@ int pars_map(t_cub *cub, char *map_path)
 		the player is the last part you only have to initialize the player with the custom funtion that I already made
 		and your task here is only assing the angle and the position to the player with already made custom funtions
 */
+/*
 int pars_player(t_cub *cub, char *map_path)
 {
 
 	return (1);
-}
+}*/
 
 
 // REMIDER  this parsing flow line is something that I made to make the things easier to you, if you want to change the code flow, the funtions or anything you are free to do whatever you want as long as you respect the next rules
