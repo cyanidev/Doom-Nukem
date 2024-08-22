@@ -56,9 +56,11 @@ int	fill_info(t_cub *cub, char **map)
 
 int	parsing(t_cub *cub, char **argv)
 {
-	if(check_file(argv[1]) == 0 && parse_map(argv[1], cub) == 0)
+	if (check_file(argv[1]) == 0)
 		free_stuff(cub);
-	if(fill_info(cub, cub->map_info.file) == 0)
+	if (parse_map(argv[1], cub) == 0)
+		return (0);
+	if (fill_info(cub, cub->map_info.file) == 0)
 	{
 		free_stuff(cub);
 		return (0);

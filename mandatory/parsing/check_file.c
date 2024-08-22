@@ -55,4 +55,3 @@ int	check_file(char *arg)
 		return (print_msg("Incorrect type of file.", 0));
 	return (1);
 }
-

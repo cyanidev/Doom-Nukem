@@ -73,6 +73,7 @@ static int	map_alloc_width(t_map_info *map_info, char **map, int i)
 		i++;
 		j++;
 	}
+	map[j] = NULL;
 	return (1);
 }
 

@@ -13,8 +13,6 @@
 //#include "cub.h"
 #include "parsing.h"
 
-
-
 static int file_lines(char *path)
 {
 	int		count;
@@ -57,6 +55,7 @@ static void fill_tab(int row, int column, int i, t_cub *cub)
 	}
 	cub->map_info.file[row] = NULL;
 }
+
 
 int	parse_map(char *path, t_cub *cub)
 {
