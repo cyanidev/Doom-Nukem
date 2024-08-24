@@ -22,39 +22,36 @@ char	*texture_path(char *line, int i)
 	while (line[i] && ft_isspace_no_nl(line[i]))
 		i++;
 	len = i;
-	while(line[len] && !ft_isspace_no_nl(line[len]))
+	while (line[len] && !ft_isspace_no_nl(line[len]))
 		len++;
 	path = malloc(sizeof(char) * (len - i + 1));
-	if(path == NULL)
+	if (path == NULL)
 		return (NULL);
 	j = 0;
 	while (line[i] && !ft_isspace_no_nl(line[i]) && line[i] != '\n')
-	{
-		path[j] = line[i];
-		i++;
-		j++;
-	}
+		path[j++] = line[i++];
 	path[j] = '\0';
-	/* unexpected content after path?? 
 	while (line[i] && ft_isspace_no_nl(line[i]))
 		i++;
 	if (line[i] && line[i] != '\n')
 	{
 		free(path);
-		return (NULL);
-	}*/
+		path = NULL;
+	}
 	return (path);
 }
 
 int	fill_textures(t_cub *cub, char *line, int i)
 {
-	if (line[i] == 'N' && line[i + 1] == 'O')
+	if (line[i + 2] && ft_isprint(line[i + 2]))
+		return (0);
+	if (line[i] == 'N' && line[i + 1] == 'O' && !cub->north_path)
 		cub->north_path = texture_path(line, i + 2);
-	else if (line[i] == 'S' && line[i + 1] == 'O')
+	else if (line[i] == 'S' && line[i + 1] == 'O' && !cub->south_path)
 		cub->south_path = texture_path(line, i + 2);
-	else if (line[i] == 'W' && line[i + 1] == 'E')
+	else if (line[i] == 'W' && line[i + 1] == 'E' && !cub->west_path)
 		cub->west_path = texture_path(line, i + 2);
-	else if (line[i] == 'E' && line[i + 1] == 'A')
+	else if (line[i] == 'E' && line[i + 1] == 'A' && !cub->east_path)
 		cub->east_path = texture_path(line, i + 2);
 	else
 		return (0);

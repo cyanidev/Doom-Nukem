@@ -13,60 +13,82 @@
 //#include "cub.h"
 #include "parsing.h"
 
-
-int parse_rgb_values(char *line, int *red, int *green, int *blue)
+static int	check_digit(char *str)
 {
-	int i = 0;
+	int	i;
+	int	flag;
 
-	while (ft_isspace(line[i]))
+	i = 0;
+	flag = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 1)
+			flag = 1;
 		i++;
-	*red = ft_atoi(&line[i]);
-	if (*red < 0 || *red > 255)
-		return (0);
-	while (line[i] && line[i] != ',')
-		i++;
-	if (line[i] == ',')
-		i++;
-	*green = ft_atoi(&line[i]);
-	if (*green < 0 || *green > 255)
-		return (0);
-	while (line[i] && line[i] != ',')
-		i++;
-	if (line[i] == ',')
-		 i++;
-	*blue = ft_atoi(&line[i]);
-	if (*blue < 0 || *blue > 255)
-		return (0);
-	return (1);
+	}
+	return (flag);
 }
 
-void colorFromRGB(int r, int g, int b, t_color *color)
+static int	*rgb_array(char **rgb, int *color)
 {
-	color->r = r;
-	color->g = g;
-	color->b = b;
+	int	i;
+
+	i = 0;
+	while (rgb[i])
+	{
+		color[i] = ft_atoi(rgb[i]);
+		if (color[i] < 0 || check_digit(rgb[i]) == 0)
+		{
+			free_tab((void **)rgb);
+			free(color);
+			return (0);
+		}
+		i++;
+	}
+	free_tab((void **)rgb);
+	return (color);
+}
+
+static int	*parse_rgb_values(char *line)
+{
+	char	**rgb;
+	int		i;
+	int		*color;
+
+	rgb = ft_split(line, ',');
+	i = 0;
+	while (rgb[i])
+		i++;
+	if (i != 3)
+	{
+		free_tab((void **)rgb);
+		return (0);
+	}
+	color = malloc(sizeof(int) * 3);
+	if (color == NULL)
+	{
+		free_tab((void **)rgb);
+		return (0);
+	}
+	return (rgb_array(rgb, color));
 }
 
 //returns 1 if the color is successfully parsed, 0 otherwise
-int fill_color(t_cub *cub, char *line, int i)
+int	fill_color(t_cub *cub, char *line, int i)
 {
-	int	red;
-	int	green;
-	int	blue;
-	
-	while (ft_isspace(line[i]))
-		i++;
-	if (line[i] == 'C')
+	if (line[i + 1] && ft_isprint(line[i + 1]))
+		return (print_msg("Error in colors", 0));
+	if (!cub->ceiling && line[i] == 'C')
 	{
-		if (parse_rgb_values(&line[i + 1], &red, &green, &blue) == 0)
+		cub->ceiling = parse_rgb_values(line + i + 1);
+		if (!cub->ceiling)
 			return (print_msg("Error parsing ceiling color", 0));
-		colorFromRGB(red, green, blue, cub->ceiling);
 	}
-	else if (line[i] == 'F')
+	else if (!cub->floor && line[i] == 'F')
 	{
-		if (parse_rgb_values(&line[i + 1], &red, &green, &blue) == 0)
+		cub->floor = parse_rgb_values(line + i + 1);
+		if (!cub->floor)
 			return (print_msg("Error parsing ceiling color", 0));
-		colorFromRGB(red, green, blue, cub->floor);
 	}
 	else
 		return (print_msg("Error in colors", 0));

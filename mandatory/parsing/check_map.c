@@ -13,72 +13,10 @@
 //#include "cub.h"
 #include "parsing.h"
 
-
-static int	check_player(t_cub *cub, char **map)
+static int	map_end(t_cub *cub)
 {
 	int	y;
 	int	x;
-
-	y = 0;
-	cub->player->dir = '0';
-	while (map[y] != NULL)
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			while(ft_isspace_no_nl(map[y][x]))
-				x++;
-			if (!(ft_strchr("10NSEW", map[y][x])))
-				return (print_msg("Error: invalid character in map", 0));
-			if (ft_strchr("NSEW", map[y][x]) && cub->player->dir != '0')
-				return (print_msg("Error: more than one player", 0));
-			if (ft_strchr("NSWE", map[y][x]) && cub->player->dir == '0')
-				cub->player->dir = map[y][x];
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}
-
-static int valid_pos(char **map, int y, int x)
-{
-	if (ft_isspace(map[y][x - 1]) || ft_isspace(map[y][x + 1])
-		|| ft_isspace(map[y - 1][x]) || ft_isspace(map[y + 1][x]))
-		return (0);
-	return (1);
-}
-
-static int	replace_player_with_floor(t_cub *cub, char **map)
-{
-	int	y;
-	int	x;
-
-	if (cub->player->dir == '0')
-		return (print_msg("Error: player not found", 0));
-	y = 0;
-	while (map[y] != NULL)
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (ft_strchr("NSWE", map[y][x]))
-			{
-				if (valid_pos(map, y, x) == 0)
-					return (print_msg("Error: invalid player position", 0));	
-				map[y][x] = '0';
-			}
-			x++;
-		}
-		y++;
-	}
-	return (1);
-}
-
-static int map_end(t_cub *cub)
-{
-	int y;
-	int x;
 
 	y = cub->map_info.index_end_of_map;
 	while (cub->map_info.file[y])
@@ -110,12 +48,12 @@ static int	check_top_bottom(char **map_tab, int i, int j)
 	return (1);
 }
 
-int map_sides(t_map_info *map_info, char **map)
+int	map_sides(t_map_info *map_info, char **map)
 {
-	int y;
-	int x;
+	int	y;
+	int	x;
 
-	if (check_top_bottom(map, 0 , 0) == 0)
+	if (check_top_bottom(map, 0, 0) == 0)
 		return (0);
 	y = 1;
 	while (y < (map_info->height - 1))

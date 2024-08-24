@@ -13,19 +13,13 @@
 //#include "cub.h"
 #include "parsing.h"
 
-void init_color(t_color *color)
-{
-	color->r = 0;
-	color->g = 0;
-	color->b = 0;
-}
-
 void init_player(t_player *player)
 {
-	player->dir = '0';
-	player->x = 0;
-	player->y = 0;
-	player->angle = 0;
+	player->dir = '\0';
+	player->x = 0.0;
+	player->y = 0.0;
+	player->plane_x = 0.0;
+	player->plane_y = 0.0;
 }
 
 void init_info(t_map_info *map_info)
@@ -39,33 +33,20 @@ void init_info(t_map_info *map_info)
 	map_info->index_end_of_map = 0;
 }
 
-int init_stuff(t_cub *cub)
+int init_parsing_info(t_cub *cub)
 {
 	cub->north_path = NULL;
 	cub->south_path = NULL;
 	cub->east_path = NULL;
 	cub->west_path = NULL;
 	cub->map = NULL;
-	
-	cub->floor = malloc(sizeof(t_color));
-	if (cub->floor == NULL)
-		return (0);
-	cub->ceiling = malloc(sizeof(t_color));
-	if (cub->ceiling == NULL)
-	{
-		free(cub->floor);
-		return (0);
-	}
-	cub->player = malloc(sizeof(t_player));
-	if (cub->player == NULL)
-	{
-		free(cub->floor);
-		free(cub->ceiling);
-		return (0);
-	}
-	init_color(cub->floor);
-	init_color(cub->ceiling);
-	init_player(cub->player);
+//
+	cub->floor = 0;
+	cub->ceiling = 0;
+	cub->x_floor = 0x0;
+	cub->x_ceiling = 0x0;
+//
+	init_player(&cub->player);
 	init_info(&cub->map_info);
 	return (1);
 }
@@ -77,12 +58,9 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		return (print_msg("Error: wrong number of arguments", 0));
-	if (init_stuff(&cub) == 0)
-		return (print_msg("Error: malloc failed", 0));
+	init_parsing_info(&cub);
 	if (parsing(&cub, argv) == 0)
-	{
-		free_stuff(&cub);
 		return (0);
-	}
+	printf("everything is ok\n");
 	return (1);
 }

@@ -13,11 +13,11 @@
 //#include "cub.h"
 #include "parsing.h"
 
-static int map_lines(t_cub *cub, char **file, int i)
+static int	map_lines(t_cub *cub, char **file, int i)
 {
-	int ival;
-	int j;
-	int count;
+	int	ival;
+	int	j;
+	int	count;
 
 	count = 0;
 	ival = i;
@@ -35,9 +35,9 @@ static int map_lines(t_cub *cub, char **file, int i)
 	return (count);
 }
 
-static int longest_line(t_map_info *map_info, int i)
+static int	longest_line(t_map_info *map_info, int i)
 {
-	size_t longest;
+	size_t	longest;
 
 	longest = ft_strlen(map_info->file[i]);
 	while (map_info->file[i])
@@ -51,8 +51,8 @@ static int longest_line(t_map_info *map_info, int i)
 
 static int	map_alloc_width(t_map_info *map_info, char **map, int i)
 {
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	j = 0;
 	k = 0;
@@ -77,7 +77,7 @@ static int	map_alloc_width(t_map_info *map_info, char **map, int i)
 	return (1);
 }
 
-static int	map_alloc_height(t_cub *cub, char **file, int i)
+int	map_alloc_height(t_cub *cub, char **file, int i)
 {
 	cub->map_info.height = map_lines(cub, file, i);
 	cub->map = malloc(sizeof(char *) * (cub->map_info.height + 1));
@@ -88,30 +88,36 @@ static int	map_alloc_height(t_cub *cub, char **file, int i)
 	return (1);
 }
 
-static void	change_space_to_empty(t_cub *cub)
+/*static void	print_map(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (cub->map[i])
+	{
+		printf("%s\n", cub->map[i]);  // Imprime cada línea del mapa
+		i++;
+	}
+}*/
+
+void	change_space_to_empty(t_cub *cub)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while(cub->map[i])
+	while (cub->map[i])
 	{
 		j = 0;
 		while (ft_isspace_no_nl(cub->map[i][j]))
 			j++;
 		while (cub->map[i][++j])
 		{
-			if (cub->map[i][j] == ' ' && j != cub->map[i][ft_strlen(cub->map[i]) - 1])
-				cub->map[i][j] = 'X';
+			if (cub->map[i][j] == ' '
+				&& j != cub->map[i][ft_strlen(cub->map[i]) - 1])
+				cub->map[i][j] = '1';
 		}
 		i++;
 	}
-}
-
-int	fill_map(t_cub *cub, char **file, int i)
-{
-	if (map_alloc_height(cub, file, i) == 0)
-		return (0);
-	change_space_to_empty(cub);
-	return (1);
+	//print_map(cub);
 }

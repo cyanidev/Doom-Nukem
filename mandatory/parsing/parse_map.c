@@ -13,7 +13,7 @@
 //#include "cub.h"
 #include "parsing.h"
 
-static int file_lines(char *path)
+static int	file_lines(char *path)
 {
 	int		count;
 	int		fd;
@@ -22,7 +22,7 @@ static int file_lines(char *path)
 	count = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (print_msg(strerror(errno), errno));
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		count++;
@@ -32,7 +32,7 @@ static int file_lines(char *path)
 	return (count);
 }
 
-static void fill_tab(int row, int column, int i, t_cub *cub)
+static void	fill_tab(int row, int column, int i, t_cub *cub)
 {
 	char	*line;
 
@@ -40,8 +40,12 @@ static void fill_tab(int row, int column, int i, t_cub *cub)
 	{
 		cub->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
 		if (cub->map_info.file[row] == NULL)
-			return ;//tab needs to be freeded before return
-		while(line[i] != '\0')
+		{
+			print_msg("Malloc failed", 1);
+			free_tab((void **)cub->map_info.file);
+			return ;
+		}
+		while (line[i] != '\0')
 		{
 			cub->map_info.file[row][column] = line[i];
 			column++;
@@ -50,14 +54,13 @@ static void fill_tab(int row, int column, int i, t_cub *cub)
 		cub->map_info.file[row][column] = '\0';
 		row++;
 		column = 0;
-		i = 0; 
+		i = 0;
 		free(line);
 	}
 	cub->map_info.file[row] = NULL;
 }
 
-
-int	parse_map(char *path, t_cub *cub)
+void	parse_map(char *path, t_cub *cub)
 {
 	int	i;
 	int	row;
@@ -68,13 +71,18 @@ int	parse_map(char *path, t_cub *cub)
 	column = 0;
 	cub->map_info.lines = file_lines(path);
 	cub->map_info.path = path;
-	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));//change to ft_calloc
+	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));
 	if (cub->map_info.file == NULL)
-		return (print_msg("Malloc failed", 0));
+	{
+		print_msg("Malloc failed", 1);
+		return ;
+	}
 	cub->map_info.fd = open(path, O_RDONLY);
 	if (cub->map_info.fd == -1)
-		return (print_msg("Failed to open file", 0));
-	fill_tab(row, column, i , cub);
+	{
+		print_msg(strerror(errno), 1);
+		return ;
+	}
+	fill_tab(row, column, i, cub);
 	close(cub->map_info.fd);
-	return (1);
 }

@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_space.c                                      :+:      :+:    :+:   */
+/*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andie <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 00:04:41 by andie             #+#    #+#             */
-/*   Updated: 2024/08/25 00:04:42 by andie            ###   ########.fr       */
+/*   Created: 2024/08/25 00:18:46 by andie             #+#    #+#             */
+/*   Updated: 2024/08/25 00:18:47 by andie            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	ft_isspace(char c)
+int	fill_map(t_cub *cub, char **file, int i)
 {
-	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	return (0);
-}
-
-int	ft_isspace_no_nl(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	return (0);
+	if (map_alloc_height(cub, file, i) == 0)
+		return (0);
+	change_space_to_empty(cub);
+	return (1);
 }
