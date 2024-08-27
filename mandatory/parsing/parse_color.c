@@ -16,17 +16,15 @@
 static int	check_digit(char *str)
 {
 	int	i;
-	int	flag;
 
 	i = 0;
-	flag = 0;
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
-		if (ft_isdigit(str[i]) == 1)
-			flag = 1;
+		if (!ft_isdigit(str[i]) && !ft_isspace_no_nl(str[i]) && str[i] != ',')
+			return (1);
 		i++;
 	}
-	return (flag);
+	return (0);
 }
 
 static int	*rgb_array(char **rgb, int *color)
@@ -37,7 +35,7 @@ static int	*rgb_array(char **rgb, int *color)
 	while (rgb[i])
 	{
 		color[i] = ft_atoi(rgb[i]);
-		if (color[i] < 0 || check_digit(rgb[i]) == 0)
+		if (color[i] == -1 || check_digit(rgb[i]) == 1)
 		{
 			free_tab((void **)rgb);
 			free(color);
@@ -77,20 +75,22 @@ static int	*parse_rgb_values(char *line)
 int	fill_color(t_cub *cub, char *line, int i)
 {
 	if (line[i + 1] && ft_isprint(line[i + 1]))
-		return (print_msg("Error in colors", 0));
+		return (print_msg("Invalid color.", 0));
 	if (!cub->ceiling && line[i] == 'C')
 	{
 		cub->ceiling = parse_rgb_values(line + i + 1);
+		printf("ceiling: %d %d %d\n", cub->ceiling[0], cub->ceiling[1], cub->ceiling[2]);
 		if (!cub->ceiling)
-			return (print_msg("Error parsing ceiling color", 0));
+			return (print_msg("Incorrect ceiling color.", 0));
 	}
 	else if (!cub->floor && line[i] == 'F')
 	{
 		cub->floor = parse_rgb_values(line + i + 1);
+		printf("floor: %d %d %d\n", cub->floor[0], cub->floor[1], cub->floor[2]);
 		if (!cub->floor)
-			return (print_msg("Error parsing ceiling color", 0));
+			return (print_msg("Incorrect floor color.", 0));
 	}
 	else
-		return (print_msg("Error in colors", 0));
+		return (print_msg("Invalid color.", 0));
 	return (1);
 }

@@ -62,7 +62,7 @@ static int	map_alloc_width(t_map_info *map_info, char **map, int i)
 		k = 0;
 		map[j] = malloc(sizeof(char) * (map_info->width + 1));
 		if (!map[j])
-			return (print_msg("Malloc failed", 0));
+			return (print_msg("Malloc failed.", 0));
 		while (map_info->file[i][k] && map_info->file[i][k] != '\n')
 		{
 			map[j][k] = map_info->file[i][k];
@@ -82,23 +82,11 @@ int	map_alloc_height(t_cub *cub, char **file, int i)
 	cub->map_info.height = map_lines(cub, file, i);
 	cub->map = malloc(sizeof(char *) * (cub->map_info.height + 1));
 	if (cub->map == NULL)
-		return (print_msg("Malloc failed", 0));
+		return (print_msg("Malloc failed.", 0));
 	if (map_alloc_width(&cub->map_info, cub->map, i) == 0)
 		return (0);
 	return (1);
 }
-
-/*static void	print_map(t_cub *cub)
-{
-	int	i;
-
-	i = 0;
-	while (cub->map[i])
-	{
-		printf("%s\n", cub->map[i]);  // Imprime cada línea del mapa
-		i++;
-	}
-}*/
 
 void	change_space_to_empty(t_cub *cub)
 {
@@ -119,5 +107,4 @@ void	change_space_to_empty(t_cub *cub)
 		}
 		i++;
 	}
-	//print_map(cub);
 }

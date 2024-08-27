@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 20:49:35 by andie             #+#    #+#             */
-/*   Updated: 2024/08/25 00:03:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/26 20:21:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	check_texture(t_cub *cub)
 {
 	if (cub->north_path == NULL || cub->south_path == NULL
 		|| cub->west_path == NULL || cub->east_path == NULL)
-		return (print_msg("North texture is missing", 0));
+		return (print_msg("North texture is missing.", 0));
 	if (!cub->ceiling || !cub->floor)
-		return (print_msg("Ceiling or floor color is missing", 0));
+		return (print_msg("Ceiling or floor color is missing.", 0));
 	if (check_path(cub->north_path) == 0
 		|| check_path(cub->south_path) == 0
 		|| check_path(cub->west_path) == 0

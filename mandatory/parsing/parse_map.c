@@ -41,7 +41,7 @@ static void	fill_tab(int row, int column, int i, t_cub *cub)
 		cub->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
 		if (cub->map_info.file[row] == NULL)
 		{
-			print_msg("Malloc failed", 1);
+			print_msg("Malloc failed.", 1);
 			free_tab((void **)cub->map_info.file);
 			return ;
 		}
@@ -74,7 +74,7 @@ void	parse_map(char *path, t_cub *cub)
 	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));
 	if (cub->map_info.file == NULL)
 	{
-		print_msg("Malloc failed", 1);
+		print_msg("Malloc failed.", 1);
 		return ;
 	}
 	cub->map_info.fd = open(path, O_RDONLY);

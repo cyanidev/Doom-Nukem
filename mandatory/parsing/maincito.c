@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 	t_cub cub;
 
 	if (argc != 2)
-		return (print_msg("Error: wrong number of arguments", 0));
+		return (print_msg("Wrong number of arguments.", 0));
 	init_parsing_info(&cub);
 	if (parsing(&cub, argv) == 0)
 		return (0);

@@ -27,9 +27,9 @@ int	check_player(t_cub *cub, char **map)
 			while (ft_isspace_no_nl(map[y][x]))
 				x++;
 			if (!(ft_strchr("10NSEW", map[y][x])))
-				return (print_msg("Error: invalid character in map", 0));
+				return (print_msg("Invalid character in map.", 0));
 			if (ft_strchr("NSEW", map[y][x]) && cub->player.dir != '0')
-				return (print_msg("Error: more than one player", 0));
+				return (print_msg("More than one player.", 0));
 			if (ft_strchr("NSWE", map[y][x]) && cub->player.dir == '0')
 				cub->player.dir = map[y][x];
 			x++;
@@ -60,7 +60,7 @@ int	replace_player_with_floor(t_cub *cub, char **map)
 	int	x;
 
 	if (cub->player.dir == '0')
-		return (print_msg("Error: player not found", 0));
+		return (0);
 	y = 0;
 	while (map[y] != NULL)
 	{
@@ -78,6 +78,6 @@ int	replace_player_with_floor(t_cub *cub, char **map)
 		y++;
 	}
 	if (valid_pos(cub, map) == 0)
-		return (print_msg("Error: invalid player position", 0));
+		return (print_msg("Invalid player position.", 0));
 	return (1);
 }

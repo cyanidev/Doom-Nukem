@@ -32,7 +32,7 @@ int	check_path(char *texture_path)
 	fd = open(texture_path, O_RDONLY);
 	if (fd == -1)
 	{
-		return (print_msg("Path to texture doesnt exist", 0));
+		return (print_msg("Path to texture is invalid.", 0));
 	}
 	close(fd);
 	if (check_exten_xpm(texture_path) == 0)

@@ -22,20 +22,20 @@ static int	while_condition(t_cub *cub, char **map, int i, int j)
 		if (map[i][j + 1] && ft_isprint(map[i][j + 1]))
 		{
 			if (fill_textures(cub, map[i], j) == 0)
-				return (print_msg("Error in textures", 0));
+				return (print_msg("Error in textures.", 0));
 			return (3);
 		}
 		else
 		{
 			if (fill_color(cub, map[i], j) == 0)
-				return (print_msg("Error in colors", 0));
+				return (0);
 			return (3);
 		}
 	}
 	else if (ft_isdigit(map[i][j]))
 	{
 		if (fill_map(cub, map, i) == 0)
-			return (print_msg("Error in map", 0));
+			return (print_msg("Error in map.", 0));
 		return (1);
 	}
 	return (2);

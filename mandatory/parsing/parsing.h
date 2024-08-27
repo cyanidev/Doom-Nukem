@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 02:02:49 by samusanc          #+#    #+#             */
-/*   Updated: 2024/08/25 00:33:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/27 01:31:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ int		map_alloc_height(t_cub *cub, char **file, int i);
 int		replace_player_with_floor(t_cub *cub, char **map);
 int		valid_pos(t_cub *cub, char **map);
 int		check_player(t_cub *cub, char **map);
+char	*ft_strtrim(char const *s1, char const *set);
 
 #endif
