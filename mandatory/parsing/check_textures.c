@@ -40,21 +40,21 @@ static unsigned long	rgb_to_hex(int *color)
 	return (hex);
 }
 
-int	check_texture(t_cub *cub)
+int	check_texture(t_cubp *cubp)
 {
-	if (cub->north_path == NULL || cub->south_path == NULL
-		|| cub->west_path == NULL || cub->east_path == NULL)
+	if (cubp->north_path == NULL || cubp->south_path == NULL
+		|| cubp->west_path == NULL || cubp->east_path == NULL)
 		return (print_msg("North texture is missing.", 0));
-	if (!cub->ceiling || !cub->floor)
+	if (!cubp->ceiling || !cubp->floor)
 		return (print_msg("Ceiling or floor color is missing.", 0));
-	if (check_path(cub->north_path) == 0
-		|| check_path(cub->south_path) == 0
-		|| check_path(cub->west_path) == 0
-		|| check_path(cub->east_path) == 0
-		|| check_rgb(cub->ceiling) == 0
-		|| check_rgb(cub->floor) == 0)
+	if (check_path(cubp->north_path) == 0
+		|| check_path(cubp->south_path) == 0
+		|| check_path(cubp->west_path) == 0
+		|| check_path(cubp->east_path) == 0
+		|| check_rgb(cubp->ceiling) == 0
+		|| check_rgb(cubp->floor) == 0)
 		return (0);
-	cub->x_ceiling = rgb_to_hex(cub->ceiling);
-	cub->x_floor = rgb_to_hex(cub->floor);
+	cubp->x_ceiling = rgb_to_hex(cubp->ceiling);
+	cubp->x_floor = rgb_to_hex(cubp->floor);
 	return (1);
 }

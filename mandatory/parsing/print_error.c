@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 /*"If any misconfiguration of any kind is encountered in the file, the program

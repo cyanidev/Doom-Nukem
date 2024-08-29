@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
-static int	map_lines(t_cub *cub, char **file, int i)
+static int	map_lines(t_cubp *cubp, char **file, int i)
 {
 	int	ival;
 	int	j;
@@ -30,7 +30,7 @@ static int	map_lines(t_cub *cub, char **file, int i)
 			break ;
 		i++;
 	}
-	cub->map_info.index_end_of_map = i;
+	cubp->map_info.index_end_of_map = i;
 	count = i - ival;
 	return (count);
 }
@@ -77,33 +77,33 @@ static int	map_alloc_width(t_map_info *map_info, char **map, int i)
 	return (1);
 }
 
-int	map_alloc_height(t_cub *cub, char **file, int i)
+int	map_alloc_height(t_cubp *cubp, char **file, int i)
 {
-	cub->map_info.height = map_lines(cub, file, i);
-	cub->map = malloc(sizeof(char *) * (cub->map_info.height + 1));
-	if (cub->map == NULL)
+	cubp->map_info.height = map_lines(cubp, file, i);
+	cubp->map = malloc(sizeof(char *) * (cubp->map_info.height + 1));
+	if (cubp->map == NULL)
 		return (print_msg("Malloc failed.", 0));
-	if (map_alloc_width(&cub->map_info, cub->map, i) == 0)
+	if (map_alloc_width(&cubp->map_info, cubp->map, i) == 0)
 		return (0);
 	return (1);
 }
 
-void	change_space_to_empty(t_cub *cub)
+void	change_space_to_empty(t_cubp *cubp)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (cub->map[i])
+	while (cubp->map[i])
 	{
 		j = 0;
-		while (ft_isspace_no_nl(cub->map[i][j]))
+		while (ft_isspace_no_nl(cubp->map[i][j]))
 			j++;
-		while (cub->map[i][++j])
+		while (cubp->map[i][++j])
 		{
-			if (cub->map[i][j] == ' '
-				&& j != cub->map[i][ft_strlen(cub->map[i]) - 1])
-				cub->map[i][j] = '1';
+			if (cubp->map[i][j] == ' '
+				&& j != cubp->map[i][ft_strlen(cubp->map[i]) - 1])
+				cubp->map[i][j] = '1';
 		}
 		i++;
 	}

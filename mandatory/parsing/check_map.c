@@ -15,18 +15,18 @@
 
 
 // checks that there is no more info after a map
-static int	map_end(t_cub *cub)
+static int	map_end(t_cubp *cubp)
 {
 	int	y;
 	int	x;
 
-	y = cub->map_info.index_end_of_map;
-	while (cub->map_info.file[y])
+	y = cubp->map_info.index_end_of_map;
+	while (cubp->map_info.file[y])
 	{
 		x = 0;
-		while (cub->map_info.file[y][x])
+		while (cubp->map_info.file[y][x])
 		{
-			if (!(ft_isspace(cub->map_info.file[y][x])))
+			if (!(ft_isspace(cubp->map_info.file[y][x])))
 				return (0);
 			x++;
 		}
@@ -78,19 +78,19 @@ int	map_sides(t_map_info *map_info, char **map)
 	return (1);
 }
 
-int	check_map(t_cub *cub, char **map)
+int	check_map(t_cubp *cubp, char **map)
 {
-	if (!cub->map)
+	if (!cubp->map)
 		return (print_msg("No map.", 0));
-	if (map_sides(&cub->map_info, map) == 0)
+	if (map_sides(&cubp->map_info, map) == 0)
 		return (print_msg("Map is not surrounded by walls1.", 0));
-	if (cub->map_info.width < 3 || cub->map_info.height < 3)
+	if (cubp->map_info.width < 3 || cubp->map_info.height < 3)
 		return (print_msg("Map is too small.", 0));
-	if (check_player(cub, map) == 0)
+	if (check_player(cubp, map) == 0)
 		return (print_msg("Player not found or more than one.", 0));
-	if (replace_player_with_floor(cub, map) == 0)
+	if (replace_player_with_floor(cubp, map) == 0)
 		return (print_msg("Player not found or more than one.", 0));
-	if (map_end(cub) == 0)
+	if (map_end(cubp) == 0)
 		return (print_msg("Invalid map.", 0));
 	return (1);
 }

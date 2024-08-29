@@ -30,40 +30,40 @@ void	free_tab(void **tab)
 	}
 }
 
-void	free_textures(t_cub *cub)
+void	free_textures(t_cubp *cubp)
 {
-	if (cub->north_path)
+	if (cubp->north_path)
 	{
-		free(cub->north_path);
-		cub->north_path = NULL;
+		free(cubp->north_path);
+		cubp->north_path = NULL;
 	}
-	if (cub->south_path)
+	if (cubp->south_path)
 	{
-		free(cub->south_path);
-		cub->south_path = NULL;
+		free(cubp->south_path);
+		cubp->south_path = NULL;
 	}
-	if (cub->west_path)
+	if (cubp->west_path)
 	{
-		free(cub->west_path);
-		cub->west_path = NULL;
+		free(cubp->west_path);
+		cubp->west_path = NULL;
 	}
-	if (cub->east_path)
+	if (cubp->east_path)
 	{
-		free(cub->east_path);
-		cub->east_path = NULL;
+		free(cubp->east_path);
+		cubp->east_path = NULL;
 	}
 }
 
-void	free_parsing(t_cub *cub)
+void	free_parsing(t_cubp *cub)
 {
-	if (!cub)
+	if (!cubp)
 		exit(1);
-	if (cub->map_info.fd > 0)
-		close(cub->map_info.fd);
-	if (cub->map_info.file)
-		free_tab((void **)cub->map_info.file);
-	if (cub->map)
-		free_tab((void **)cub->map);
-	free_textures(cub);
+	if (cubp->map_info.fd > 0)
+		close(cubp->map_info.fd);
+	if (cubp->map_info.file)
+		free_tab((void **)cubp->map_info.file);
+	if (cubp->map)
+		free_tab((void **)cubp->map);
+	free_textures(cubp);
 	exit(1);
 }

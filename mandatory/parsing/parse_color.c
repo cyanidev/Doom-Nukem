@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 static int	check_digit(char *str)
@@ -72,22 +72,22 @@ static int	*parse_rgb_values(char *line)
 }
 
 //returns 1 if the color is successfully parsed, 0 otherwise
-int	fill_color(t_cub *cub, char *line, int i)
+int	fill_color(t_cubp *cubp, char *line, int i)
 {
 	if (line[i + 1] && ft_isprint(line[i + 1]))
 		return (print_msg("Invalid color.", 0));
-	if (!cub->ceiling && line[i] == 'C')
+	if (!cubp->ceiling && line[i] == 'C')
 	{
-		cub->ceiling = parse_rgb_values(line + i + 1);
-		printf("ceiling: %d %d %d\n", cub->ceiling[0], cub->ceiling[1], cub->ceiling[2]);
-		if (!cub->ceiling)
+		cubp->ceiling = parse_rgb_values(line + i + 1);
+		printf("ceiling: %d %d %d\n", cubp->ceiling[0], cubp->ceiling[1], cubp->ceiling[2]);
+		if (!cubp->ceiling)
 			return (print_msg("Incorrect ceiling color.", 0));
 	}
-	else if (!cub->floor && line[i] == 'F')
+	else if (!cubp->floor && line[i] == 'F')
 	{
-		cub->floor = parse_rgb_values(line + i + 1);
-		printf("floor: %d %d %d\n", cub->floor[0], cub->floor[1], cub->floor[2]);
-		if (!cub->floor)
+		cubp->floor = parse_rgb_values(line + i + 1);
+		printf("floor: %d %d %d\n", cubp->floor[0], cubp->floor[1], cubp->floor[2]);
+		if (!cubp->floor)
 			return (print_msg("Incorrect floor color.", 0));
 	}
 	else

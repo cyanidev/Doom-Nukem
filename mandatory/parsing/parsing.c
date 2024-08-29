@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
-static int	while_condition(t_cub *cub, char **map, int i, int j)
+static int	while_condition(t_cubp *cubp, char **map, int i, int j)
 {
 	while (ft_isspace(map[i][j]))
 		j++;
@@ -21,27 +21,27 @@ static int	while_condition(t_cub *cub, char **map, int i, int j)
 	{
 		if (map[i][j + 1] && ft_isprint(map[i][j + 1]))
 		{
-			if (fill_textures(cub, map[i], j) == 0)
+			if (fill_textures(cubp, map[i], j) == 0)
 				return (print_msg("Error in textures.", 0));
 			return (3);
 		}
 		else
 		{
-			if (fill_color(cub, map[i], j) == 0)
+			if (fill_color(cubp, map[i], j) == 0)
 				return (0);
 			return (3);
 		}
 	}
 	else if (ft_isdigit(map[i][j]))
 	{
-		if (fill_map(cub, map, i) == 0)
+		if (fill_map(cubp, map, i) == 0)
 			return (print_msg("Error in map.", 0));
 		return (1);
 	}
 	return (2);
 }
 
-int	fill_info(t_cub *cub, char **map)
+int	fill_info(t_cubp *cubp, char **map)
 {
 	int	i;
 	int	j;
@@ -53,7 +53,7 @@ int	fill_info(t_cub *cub, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			stop = while_condition(cub, map, i, j);
+			stop = while_condition(cubp, map, i, j);
 			if (stop == 3)
 				break ;
 			else if (stop == 1)
@@ -67,26 +67,26 @@ int	fill_info(t_cub *cub, char **map)
 	return (1);
 }
 
-int	parsing(t_cub *cub, char **argv)
+int	parsing(t_cubp *cubp, char **argv)
 {
 	if (check_file(argv[1]) == 0)
-		free_parsing(cub);
-	parse_map(argv[1], cub);
-	if (fill_info(cub, cub->map_info.file) == 0)
+		free_parsing(cubp);
+	parse_map(argv[1], cubp);
+	if (fill_info(cubp, cubp->map_info.file) == 0)
 	{
-		free_parsing(cub);
+		free_parsing(cubp);
 		return (0);
 	}
-	if (check_map(cub, cub->map) == 0)
+	if (check_map(cubp, cubp->map) == 0)
 	{
-		free_parsing(cub);
+		free_parsing(cubp);
 		return (0);
 	}
-	if (check_texture(cub) == 0)
+	if (check_texture(cubp) == 0)
 	{
-		free_parsing(cub);
+		free_parsing(cubp);
 		return (0);
 	}
-	player_dir(cub);
+	player_dir(cubp);
 	return (1);
 }

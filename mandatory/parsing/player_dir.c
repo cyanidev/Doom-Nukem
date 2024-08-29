@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub.h"
 #include "parsing.h"
 
 static void	north_south(t_player *player)
@@ -52,8 +53,8 @@ static void	east_west(t_player *player)
 		return ;
 }
 
-void	player_dir(t_cub *cub)
+void	player_dir(t_cubp *cubp)
 {
-	north_south(&cub->player);
-	east_west(&cub->player);
+	north_south(&cubp->player);
+	east_west(&cubp->player);
 }

@@ -41,18 +41,18 @@ char	*texture_path(char *line, int i)
 	return (path);
 }
 
-int	fill_textures(t_cub *cub, char *line, int i)
+int	fill_textures(t_cubp *cubp, char *line, int i)
 {
 	if (line[i + 2] && ft_isprint(line[i + 2]))
 		return (0);
-	if (line[i] == 'N' && line[i + 1] == 'O' && !cub->north_path)
-		cub->north_path = texture_path(line, i + 2);
-	else if (line[i] == 'S' && line[i + 1] == 'O' && !cub->south_path)
-		cub->south_path = texture_path(line, i + 2);
-	else if (line[i] == 'W' && line[i + 1] == 'E' && !cub->west_path)
-		cub->west_path = texture_path(line, i + 2);
-	else if (line[i] == 'E' && line[i + 1] == 'A' && !cub->east_path)
-		cub->east_path = texture_path(line, i + 2);
+	if (line[i] == 'N' && line[i + 1] == 'O' && !cubp->north_path)
+		cubp->north_path = texture_path(line, i + 2);
+	else if (line[i] == 'S' && line[i + 1] == 'O' && !cubp->south_path)
+		cubp->south_path = texture_path(line, i + 2);
+	else if (line[i] == 'W' && line[i + 1] == 'E' && !cubp->west_path)
+		cubp->west_path = texture_path(line, i + 2);
+	else if (line[i] == 'E' && line[i + 1] == 'A' && !cubp->east_path)
+		cubp->east_path = texture_path(line, i + 2);
 	else
 		return (0);
 	return (1);

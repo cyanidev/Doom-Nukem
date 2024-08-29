@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 void init_player(t_player *player)
@@ -33,34 +33,47 @@ void init_info(t_map_info *map_info)
 	map_info->index_end_of_map = 0;
 }
 
-int init_parsing_info(t_cub *cub)
+int init_parsing_info(t_cubp *cubp)
 {
-	cub->north_path = NULL;
-	cub->south_path = NULL;
-	cub->east_path = NULL;
-	cub->west_path = NULL;
-	cub->map = NULL;
+	cubp->north_path = NULL;
+	cubp->south_path = NULL;
+	cubp->east_path = NULL;
+	cubp->west_path = NULL;
+	cubp->map = NULL;
 //
-	cub->floor = 0;
-	cub->ceiling = 0;
-	cub->x_floor = 0x0;
-	cub->x_ceiling = 0x0;
+	cubp->floor = 0;
+	cubp->ceiling = 0;
+	cubp->x_floor = 0x0;
+	cubp->x_ceiling = 0x0;
 //
-	init_player(&cub->player);
-	init_info(&cub->map_info);
+	init_player(&cubp->player);
+	init_info(&cubp->map_info);
 	return (1);
 }
 
-//for testing purposes
-int main(int argc, char **argv)
+void fill_structure(t_cub *cub, t_cub *cubp)
 {
-	t_cub cub;
+	cub->north_path = cubp->north_path;
+	cub->south_path = cubp->south_path;
+	cub->east_path = cubp->east_path;
+	cub->west_path = cubp->west_path;
+	cub->map = cubp->map;
+//
+	cub->floor = cubp->floor;
+	cub->ceiling = cubp->ceiling;
+	cub->x_floor = cubp->x_floor;
+	cub->x_ceiling = cubp->x_ceiling;
+}
 
-	if (argc != 2)
-		return (print_msg("Wrong number of arguments.", 0));
-	init_parsing_info(&cub);
-	if (parsing(&cub, argv) == 0)
+//for testing purposes
+int parsingmap(char **argv, t_cub *cub)
+{
+	t_cubp cubp;
+
+	init_parsing_info(&cubp);
+	if (parsing(&cubp, argv) == 0)
 		return (0);
+	fill_structure(cub, &cubp);
 	printf("everything is ok\n");
 	return (1);
 }

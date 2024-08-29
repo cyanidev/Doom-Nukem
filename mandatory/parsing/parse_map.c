@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 static int	file_lines(char *path)
@@ -32,35 +32,35 @@ static int	file_lines(char *path)
 	return (count);
 }
 
-static void	fill_tab(int row, int column, int i, t_cub *cub)
+static void	fill_tab(int row, int column, int i, t_cubp *cubp)
 {
 	char	*line;
 
-	while ((line = get_next_line(cub->map_info.fd)) != NULL)
+	while ((line = get_next_line(cubp->map_info.fd)) != NULL)
 	{
-		cub->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
-		if (cub->map_info.file[row] == NULL)
+		cubp->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
+		if (cubp->map_info.file[row] == NULL)
 		{
 			print_msg("Malloc failed.", 1);
-			free_tab((void **)cub->map_info.file);
+			free_tab((void **)cubp->map_info.file);
 			return ;
 		}
 		while (line[i] != '\0')
 		{
-			cub->map_info.file[row][column] = line[i];
+			cubp->map_info.file[row][column] = line[i];
 			column++;
 			i++;
 		}
-		cub->map_info.file[row][column] = '\0';
+		cubp->map_info.file[row][column] = '\0';
 		row++;
 		column = 0;
 		i = 0;
 		free(line);
 	}
-	cub->map_info.file[row] = NULL;
+	cubp->map_info.file[row] = NULL;
 }
 
-void	parse_map(char *path, t_cub *cub)
+void	parse_map(char *path, t_cubp *cubp)
 {
 	int	i;
 	int	row;
@@ -69,20 +69,20 @@ void	parse_map(char *path, t_cub *cub)
 	i = 0;
 	row = 0;
 	column = 0;
-	cub->map_info.lines = file_lines(path);
-	cub->map_info.path = path;
-	cub->map_info.file = calloc(cub->map_info.lines + 1, sizeof(char *));
-	if (cub->map_info.file == NULL)
+	cubp->map_info.lines = file_lines(path);
+	cubp->map_info.path = path;
+	cubp->map_info.file = calloc(cubp->map_info.lines + 1, sizeof(char *));
+	if (cubp->map_info.file == NULL)
 	{
 		print_msg("Malloc failed.", 1);
 		return ;
 	}
-	cub->map_info.fd = open(path, O_RDONLY);
-	if (cub->map_info.fd == -1)
+	cubp->map_info.fd = open(path, O_RDONLY);
+	if (cubp->map_info.fd == -1)
 	{
 		print_msg(strerror(errno), 1);
 		return ;
 	}
-	fill_tab(row, column, i, cub);
-	close(cub->map_info.fd);
+	fill_tab(row, column, i, cubp);
+	close(cubp->map_info.fd);
 }
