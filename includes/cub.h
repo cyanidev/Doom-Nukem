@@ -35,8 +35,8 @@ typedef struct s_cub
 	char			*south_path;
 	char			*east_path;
 	char			*west_path;
-	t_color			floor;
-	t_color			celling;
+	int				*floor;
+	int			*celling;
 	char			**map;
 	t_player		*player;
 

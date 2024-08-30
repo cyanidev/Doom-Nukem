@@ -12,6 +12,7 @@
 
 #include "mlx.h"
 #include "cub.h"
+#include "parsing.h"
 
 
 //===========================================================================//
@@ -99,8 +100,8 @@ int	init_gen_struct(t_cub *cub, char *map_path)
 	cub->mlx_win = mlx_new_window(cub->mlx, 1920, 1080, "Default Windows");
 	if (!cub->mlx_win)
 		return (i_g_s_error(cub));
-	if (!parsing(cub, map_path))
-		return (i_g_s_error(cub));
+	/*if (!parsingmap(&map_path, cub))
+		return (i_g_s_error(cub));*/
 	if (!open_wall_tex(cub))
 		return (i_g_s_error(cub));
 	return (1);
@@ -532,7 +533,7 @@ int	main(int argc, char **argv)
 
 	cub = ft_constructor(argv[1]);
 	//================================================================================
-
+	parsingmap(argv, cub);
 	cub->tmp = init_img(cub->mlx, resolution(1920, 1080));
 	fill_img(cub->tmp, color(red));
 

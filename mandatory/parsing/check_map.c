@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
-
 
 // checks that there is no more info after a map
 static int	map_end(t_cubp *cubp)

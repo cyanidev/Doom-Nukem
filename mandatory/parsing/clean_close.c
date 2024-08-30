@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 void	free_tab(void **tab)
@@ -54,7 +54,7 @@ void	free_textures(t_cubp *cubp)
 	}
 }
 
-void	free_parsing(t_cubp *cub)
+void	free_parsing(t_cubp *cubp)
 {
 	if (!cubp)
 		exit(1);

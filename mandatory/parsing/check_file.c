@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 //checks whether the argument is a directory, return 1 if it is, 0 if it is not

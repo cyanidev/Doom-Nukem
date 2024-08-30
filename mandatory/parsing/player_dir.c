@@ -13,41 +13,41 @@
 #include "cub.h"
 #include "parsing.h"
 
-static void	north_south(t_player *player)
+static void	north_south(t_player_pos *player_pos)
 {
-	if (player->dir == 'S')
+	if (player_pos->dir == 'S')
 	{
-		player->x = 0;
-		player->y = 1;
-		player->plane_x = -0.66;
-		player->plane_y = 0;
+		player_pos->x = 0;
+		player_pos->y = 1;
+		player_pos->plane_x = -0.66;
+		player_pos->plane_y = 0;
 	}
-	else if (player->dir == 'N')
+	else if (player_pos->dir == 'N')
 	{
-		player->x = 0;
-		player->y = -1;
-		player->plane_x = 0.66;
-		player->plane_y = 0;
+		player_pos->x = 0;
+		player_pos->y = -1;
+		player_pos->plane_x = 0.66;
+		player_pos->plane_y = 0;
 	}
 	else
 		return ;
 }
 
-static void	east_west(t_player *player)
+static void	east_west(t_player_pos *player_pos)
 {
-	if (player->dir == 'W')
+	if (player_pos->dir == 'W')
 	{
-		player->x = -1;
-		player->y = 0;
-		player->plane_x = 0;
-		player->plane_y = -0.66;
+		player_pos->x = -1;
+		player_pos->y = 0;
+		player_pos->plane_x = 0;
+		player_pos->plane_y = -0.66;
 	}
-	else if (player->dir == 'E')
+	else if (player_pos->dir == 'E')
 	{
-		player->x = 1;
-		player->y = 0;
-		player->plane_x = 0;
-		player->plane_y = 0.66;
+		player_pos->x = 1;
+		player_pos->y = 0;
+		player_pos->plane_x = 0;
+		player_pos->plane_y = 0.66;
 	}
 	else
 		return ;
@@ -55,6 +55,6 @@ static void	east_west(t_player *player)
 
 void	player_dir(t_cubp *cubp)
 {
-	north_south(&cubp->player);
-	east_west(&cubp->player);
+	north_south(&cubp->player_pos);
+	east_west(&cubp->player_pos);
 }

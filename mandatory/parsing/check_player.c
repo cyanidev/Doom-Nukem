@@ -18,7 +18,7 @@ int	check_player(t_cubp *cubp, char **map)
 	int	x;
 
 	y = 0;
-	cubp->player.dir = '0';
+	cubp->player_pos.dir = '0';
 	while (map[y] != NULL)
 	{
 		x = 0;
@@ -28,10 +28,10 @@ int	check_player(t_cubp *cubp, char **map)
 				x++;
 			if (!(ft_strchr("10NSEW", map[y][x])))
 				return (print_msg("Invalid character in map.", 0));
-			if (ft_strchr("NSEW", map[y][x]) && cubp->player.dir != '0')
+			if (ft_strchr("NSEW", map[y][x]) && cubp->player_pos.dir != '0')
 				return (print_msg("More than one player.", 0));
-			if (ft_strchr("NSWE", map[y][x]) && cubp->player.dir == '0')
-				cubp->player.dir = map[y][x];
+			if (ft_strchr("NSWE", map[y][x]) && cubp->player_pos.dir == '0')
+				cubp->player_pos.dir = map[y][x];
 			x++;
 		}
 		y++;
@@ -44,8 +44,8 @@ int	valid_pos(t_cubp *cubp, char **map)
 	int	y;
 	int	x;
 
-	y = (int)cubp->player.plane_y;
-	x = (int)cubp->player.plane_x;
+	y = (int)cubp->player_pos.plane_y;
+	x = (int)cubp->player_pos.plane_x;
 	if (ft_strlen(map[y - 1]) < (size_t)x
 		|| ft_strlen(map[y + 1]) < (size_t)x
 		|| ft_isspace(map[y][x - 1]) || ft_isspace(map[y][x + 1])
@@ -59,7 +59,7 @@ int	replace_player_with_floor(t_cubp *cubp, char **map)
 	int	y;
 	int	x;
 
-	if (cubp->player.dir == '0')
+	if (cubp->player_pos.dir == '0')
 		return (0);
 	y = 0;
 	while (map[y] != NULL)
@@ -69,8 +69,8 @@ int	replace_player_with_floor(t_cubp *cubp, char **map)
 		{
 			if (ft_strchr("NSWE", map[y][x]))
 			{
-				cubp->player.plane_y = (double)y + 0.5;
-				cubp->player.plane_x = (double)x + 0.5;
+				cubp->player_pos.plane_y = (double)y + 0.5;
+				cubp->player_pos.plane_x = (double)x + 0.5;
 				map[y][x] = '0';
 			}
 			x++;

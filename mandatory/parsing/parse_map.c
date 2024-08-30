@@ -22,11 +22,13 @@ static int	file_lines(char *path)
 	count = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		return (print_msg(strerror(errno), errno));
-	while ((line = get_next_line(fd)) != NULL)
+		return (print_msg("fd = -1", errno));
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		count++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);
@@ -36,7 +38,8 @@ static void	fill_tab(int row, int column, int i, t_cubp *cubp)
 {
 	char	*line;
 
-	while ((line = get_next_line(cubp->map_info.fd)) != NULL)
+	line = get_next_line(cubp->map_info.fd);
+	while (line != NULL)
 	{
 		cubp->map_info.file[row] = calloc((ft_strlen(line) + 1), sizeof(char));
 		if (cubp->map_info.file[row] == NULL)
@@ -51,11 +54,11 @@ static void	fill_tab(int row, int column, int i, t_cubp *cubp)
 			column++;
 			i++;
 		}
-		cubp->map_info.file[row][column] = '\0';
-		row++;
+		cubp->map_info.file[row++][column] = '\0';
 		column = 0;
 		i = 0;
 		free(line);
+		line = get_next_line(cubp->map_info.fd);
 	}
 	cubp->map_info.file[row] = NULL;
 }
@@ -80,7 +83,7 @@ void	parse_map(char *path, t_cubp *cubp)
 	cubp->map_info.fd = open(path, O_RDONLY);
 	if (cubp->map_info.fd == -1)
 	{
-		print_msg(strerror(errno), 1);
+		print_msg("fd = -1", 1);
 		return ;
 	}
 	fill_tab(row, column, i, cubp);

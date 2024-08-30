@@ -79,14 +79,12 @@ int	fill_color(t_cubp *cubp, char *line, int i)
 	if (!cubp->ceiling && line[i] == 'C')
 	{
 		cubp->ceiling = parse_rgb_values(line + i + 1);
-		printf("ceiling: %d %d %d\n", cubp->ceiling[0], cubp->ceiling[1], cubp->ceiling[2]);
 		if (!cubp->ceiling)
 			return (print_msg("Incorrect ceiling color.", 0));
 	}
 	else if (!cubp->floor && line[i] == 'F')
 	{
 		cubp->floor = parse_rgb_values(line + i + 1);
-		printf("floor: %d %d %d\n", cubp->floor[0], cubp->floor[1], cubp->floor[2]);
 		if (!cubp->floor)
 			return (print_msg("Incorrect floor color.", 0));
 	}

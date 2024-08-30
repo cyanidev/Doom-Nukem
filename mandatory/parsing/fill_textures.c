@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "cub.h"
+#include "cub.h"
 #include "parsing.h"
 
 char	*texture_path(char *line, int i)
