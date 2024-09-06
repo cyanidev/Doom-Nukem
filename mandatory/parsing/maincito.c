@@ -51,6 +51,7 @@ int	init_parsing_info(t_cubp *cubp)
 
 static void	fill_structure(t_cub *cub, t_cubp *cubp)
 {
+	printf("northpath: %s", cubp->north_path);
 	cub->north_path = cubp->north_path;
 	cub->south_path = cubp->south_path;
 	cub->east_path = cubp->east_path;
