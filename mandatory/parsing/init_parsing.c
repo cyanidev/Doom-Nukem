@@ -49,18 +49,6 @@ int	init_parsing_info(t_cubp *cubp)
 	return (1);
 }
 
-void print_map(char **map, int y, int x)
-{
-	for (int i = 0; i < x; i++)
-	{
-		for (int j = 0; j < y; j++)
-		{	
-			printf("%c", map[i][j]);
-		}
-		printf("\n");
-	}
-}
-
 static void	fill_structure(t_cub *cub, t_cubp *cubp)
 {
 	cub->north_path = cubp->north_path;
@@ -70,13 +58,6 @@ static void	fill_structure(t_cub *cub, t_cubp *cubp)
 	cub->map = cubp->map;
 	cub->floor = cubp->floor;
 	cub->celling = cubp->ceiling;
-	print_map(cub->map, cubp->map_info.width, cubp->map_info.height);
-	printf("f: %d, %d, %d\n", cub->floor[0], cub->floor[1], cub->floor[2]);
-	printf("c: %d, %d, %d\n", cub->celling[0], cub->celling[1], cub->celling[2]);
-	printf("no: %s\n", cub->north_path);
-	printf("so: %s\n", cub->south_path);
-	printf("ea: %s\n", cub->east_path);
-	printf("we: %s\n", cub->west_path);
 	free_parsing(cubp);
 }
 
