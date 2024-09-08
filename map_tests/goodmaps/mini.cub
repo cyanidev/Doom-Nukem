@@ -1,4 +1,4 @@
-NO  ./textures/wolf/grey.xpm
+NO  ./textures/wold/grey.xpm
 
 
 
@@ -8,7 +8,7 @@ NO  ./textures/wolf/grey.xpm
 
 
 
-EA    ./textures/wolf/notsure.xpm
+EA   ./textures/wolf/notsure.xpm
 
 
 
@@ -18,13 +18,58 @@ SO ./textures/wolf/bluestuff.xpm
 C 255,100,255                                                                                      
 F                        255,                           100,                          255
 WE                                                                                   ./textures/wolf/green.xpm
-1111111               1                   1
-1111111111111111111111111111111111111111111111
-110E111111111111111111111111111111111111111
-11111111111111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 111
-11
-101
+1N1
 111
-1
-1

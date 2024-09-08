@@ -41,9 +41,16 @@ char	*texture_path(char *line, int i)
 	return (path);
 }
 
+int ft_isprint_no_ws(int c)
+{
+	if (c >= 33 && c < 127)
+		return (1);
+	return (0);
+}
+
 int	fill_textures(t_cubp *cubp, char *line, int i)
 {
-	if (line[i + 2] && ft_isprint(line[i + 2]))
+	if (line[i + 2] && ft_isprint_no_ws(line[i + 2]))
 		return (0);
 	if (line[i] == 'N' && line[i + 1] == 'O' && !cubp->north_path)
 		cubp->north_path = texture_path(line, i + 2);

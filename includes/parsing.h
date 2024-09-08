@@ -88,6 +88,7 @@ int		map_alloc_height(t_cubp *cubp, char **file, int i);
 int		replace_player_with_floor(t_cubp *cubp, char **map);
 int		valid_pos(t_cubp *cubp, char **map);
 int		check_player(t_cubp *cubp, char **map);
+int		ft_isprint_no_ws(int c);
 //char	*ft_strdup_gnl(const char *s);
 //char	*ft_strchr_gnl(char *str, int c);
 //void	ft_free_gnl(char **str, char **str2, char **str3);

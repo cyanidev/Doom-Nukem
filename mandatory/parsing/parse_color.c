@@ -74,7 +74,7 @@ static int	*parse_rgb_values(char *line)
 //returns 1 if the color is successfully parsed, 0 otherwise
 int	fill_color(t_cubp *cubp, char *line, int i)
 {
-	if (line[i + 1] && ft_isprint(line[i + 1]))
+	if (line[i + 1] && ft_isprint_no_ws(line[i + 1]))
 		return (print_msg("Invalid color.", 0));
 	if (!cubp->ceiling && line[i] == 'C')
 	{

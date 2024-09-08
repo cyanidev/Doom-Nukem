@@ -53,9 +53,7 @@ SRCS		= \
 				./mandatory/parsing/fill_map.c \
 				./mandatory/parsing/fill_textures.c \
 				./mandatory/parsing/ft_is_space.c \
-				./mandatory/parsing/gnl_utils.c \
-				./mandatory/parsing/gnl.c \
-				./mandatory/parsing/maincito.c \
+				./mandatory/parsing/init_parsing.c \
 				./mandatory/parsing/map.c \
 				./mandatory/parsing/parse_color.c \
 				./mandatory/parsing/parse_map.c \

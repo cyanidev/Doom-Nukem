@@ -41,8 +41,6 @@ static int	check_top_bottom(char **map_tab, int i, int j)
 		return (0);
 	while (ft_isspace_no_nl(map_tab[i][j]))
 		j++;
-	if (map_tab[i][j] == '1' && map_tab[i][j - 1] == '\0')
-		return (1);
 	while (map_tab[i][j])
 	{
 		if (map_tab[i][j] != '1')
@@ -82,7 +80,7 @@ int	check_map(t_cubp *cubp, char **map)
 	if (!cubp->map)
 		return (print_msg("No map.", 0));
 	if (map_sides(&cubp->map_info, map) == 0)
-		return (print_msg("Map is not surrounded by walls1.", 0));
+		return (print_msg("Map is not surrounded by walls.", 0));
 	if (cubp->map_info.width < 3 || cubp->map_info.height < 3)
 		return (print_msg("Map is too small.", 0));
 	if (check_player(cubp, map) == 0)

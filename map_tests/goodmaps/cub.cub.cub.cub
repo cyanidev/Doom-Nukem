@@ -1,11 +1,9 @@
-NO textures/wolf/grey.xpm
-SO textures/wolf/notsure.xpm
-WE textures/wolf/bluestuff.xpm
-EA textures/wolf/green.xpm
-
+NO ./textures/wolf/grey.xpm
 F 220,100,0
+EA ./textures/wolf/notsure.xpm
 C 225,30,0
-
+WE ./textures/wolf/bluestuff.xpm
+SO ./textures/wolf/green.xpm
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001

@@ -17,9 +17,9 @@ static int	while_condition(t_cubp *cubp, char **map, int i, int j)
 {
 	while (ft_isspace(map[i][j]))
 		j++;
-	if (ft_isprint(map[i][j]) && !ft_isdigit(map[i][j]))
+	if (ft_isprint_no_ws(map[i][j]) && !ft_isdigit(map[i][j]))
 	{
-		if (map[i][j + 1] && ft_isprint(map[i][j + 1]))
+		if (map[i][j + 1] && ft_isprint_no_ws(map[i][j + 1]))
 		{
 			if (fill_textures(cubp, map[i], j) == 0)
 				return (print_msg("Error in textures.", 0));
